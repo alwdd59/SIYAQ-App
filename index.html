@@ -11,17 +11,22 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="theme-color" content="#050507" />
 
+  <!-- تسريع الاتصال المسبق بخوادم الترجمة والخطوط -->
   <link rel="preconnect" href="https://translate.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://clients5.google.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&family=Cairo:wght@500;700;900&family=Changa:wght@500;700;800&family=Fredoka:wght@600;700&family=Noto+Sans+JP:wght@900&family=Outfit:wght@800;900&family=Playfair+Display:ital,wght@1,900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
+  <!-- مكتبة الأيقونات FontAwesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
+  <!-- محرك قراءة النصوص Tesseract.js + قارئ الباركود jsQR + محرك المزامنة MQTT -->
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
   <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
@@ -58,13 +63,22 @@
       transition: background-color 0.2s, color 0.2s;
     }
 
+    .brand-logo {
+      font-family: 'Fredoka', 'Outfit', sans-serif;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+    }
+
     .fa-solid, .fa-brands, .fa-regular {
       font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
     }
 
-    .cosmo-header-gradient { background: var(--top-grad); }
+    .cosmo-header-gradient {
+      background: var(--top-grad);
+    }
 
-    .bg-cosmo, .btn-text-only {
+    .bg-cosmo,
+    .btn-text-only {
       background: transparent !important;
       background-color: transparent !important;
       box-shadow: none !important;
@@ -75,9 +89,12 @@
       transition: transform 0.12s ease, opacity 0.12s ease;
     }
 
-    html.light .bg-cosmo, html.light .btn-text-only { color: #D98200 !important; }
+    html.light .bg-cosmo,
+    html.light .btn-text-only {
+      color: #D98200 !important;
+    }
 
-    button:not(.color-swatch-btn):not(.engine-choice-row):not(.zone-choice-btn) {
+    button:not(.color-swatch-btn):not(.engine-choice-row):not(.tv-submode-pill) {
       background: transparent !important;
       background-color: transparent !important;
       box-shadow: none !important;
@@ -87,12 +104,23 @@
       outline: none !important;
     }
 
-    button:not(.color-swatch-btn):active { transform: scale(0.96); }
+    button:not(.color-swatch-btn):active {
+      transform: scale(0.96);
+    }
 
-    .text-cosmo { color: #F5A623 !important; text-shadow: none !important; }
-    html.light .text-cosmo { color: #D98200 !important; }
+    .text-cosmo {
+      color: #F5A623 !important;
+      text-shadow: none !important;
+    }
 
-    .clean-surface { background-color: var(--bg-soft); color: var(--text-main); }
+    html.light .text-cosmo {
+      color: #D98200 !important;
+    }
+
+    .clean-surface {
+      background-color: var(--bg-soft);
+      color: var(--text-main);
+    }
 
     .icon-tap {
       color: #F5A623 !important;
@@ -100,15 +128,25 @@
       box-shadow: none !important;
       border: none !important;
     }
-    html.light .icon-tap { color: #D98200 !important; }
 
-    input[type=range] { accent-color: #F5A623; }
+    html.light .icon-tap {
+      color: #D98200 !important;
+    }
+
+    input[type=range] {
+      accent-color: #F5A623;
+    }
 
     #motionSplashScreen {
       background-color: #050507;
       transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.45s ease;
     }
-    #motionSplashScreen.splash-fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
+
+    #motionSplashScreen.splash-fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
 
     @keyframes focusRingPop {
       0% { transform: translate(-50%, -50%) scale(1.35); opacity: 1; }
@@ -127,12 +165,7 @@
       animation: focusRingPop 0.55s ease-out forwards;
     }
 
-    @keyframes pulseDot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.35; transform: scale(0.8); }
-    }
-    .live-pulse-dot { animation: pulseDot 1.4s infinite ease-in-out; }
-
+    /* صندوق الترجمة المتوازن والمطابق لحدود النص (مثل Red Dead) */
     .balanced-sub-box {
       width: fit-content;
       max-width: 85%;
@@ -168,11 +201,22 @@
             <stop offset="50%" stop-color="#F5B942" />
             <stop offset="100%" stop-color="#F2C260" />
           </linearGradient>
-          <clipPath id="engLeftClip"><rect id="engLeftClipRect" x="0" y="0" width="35" height="100" /></clipPath>
-          <clipPath id="engRightClip"><rect id="engRightClipRect" x="35" y="0" width="65" height="100" /></clipPath>
-          <clipPath id="arLeftClip"><rect id="arLeftClipRect" x="0" y="0" width="0" height="100" /></clipPath>
-          <clipPath id="arRightClip"><rect id="arRightClipRect" x="38" y="0" width="0" height="100" /></clipPath>
+
+          <clipPath id="engLeftClip">
+            <rect id="engLeftClipRect" x="0" y="0" width="35" height="100" />
+          </clipPath>
+          <clipPath id="engRightClip">
+            <rect id="engRightClipRect" x="35" y="0" width="65" height="100" />
+          </clipPath>
+
+          <clipPath id="arLeftClip">
+            <rect id="arLeftClipRect" x="0" y="0" width="0" height="100" />
+          </clipPath>
+          <clipPath id="arRightClip">
+            <rect id="arRightClipRect" x="38" y="0" width="0" height="100" />
+          </clipPath>
         </defs>
+
         <g id="splashEngLeftGroup" clip-path="url(#engLeftClip)">
           <path d="M11.1 35.1 H24.5 V39.2 H14.2 V46.3 H25.5 V64.9 H11.0 V59.2 H21.9 V51.4 H11.1 Z" fill="#FFFFFF" />
         </g>
@@ -181,6 +225,7 @@
           <path fill-rule="evenodd" clip-rule="evenodd" d="M54.9 35.5 H68.9 V64.9 H64.5 V55.9 H59.3 V64.9 H54.9 Z M59.5 40.7 H64.6 V51.2 H59.5 Z" fill="#FFFFFF" />
           <path fill-rule="evenodd" clip-rule="evenodd" d="M71.7 35.5 H85.0 V59.8 H89.0 L86.1 64.9 H71.7 Z M74.8 39.2 H80.9 V59.8 H74.8 Z" fill="#FFFFFF" />
         </g>
+
         <g id="splashArLeftGroup" clip-path="url(#arLeftClip)">
           <rect x="23.54" y="36.68" width="4.12" height="2.94" fill="#FFFFFF" />
           <rect x="29.81" y="36.68" width="4.12" height="2.94" fill="#FFFFFF" />
@@ -191,9 +236,22 @@
           <rect x="47.65" y="68.23" width="4.12" height="2.94" fill="#FFFFFF" />
           <rect x="54.31" y="68.23" width="4.12" height="2.94" fill="#FFFFFF" />
         </g>
+
         <rect id="splashOrangeScannerBar" x="29.5" y="35.1" width="4.65" height="30.0" fill="url(#siyaqOrangeGrad)" />
       </svg>
     </div>
+  </div>
+
+  <!-- ================= شاشة توفير الطاقة OLED Black لوضع الشاشة ================= -->
+  <div id="oledPowerSaveScreen" ondblclick="toggleOledPowerSave(false)" class="hidden fixed inset-0 z-[150] bg-black text-slate-600 flex flex-col items-center justify-between p-8 select-none cursor-pointer">
+    <div class="text-[11px] font-mono tracking-widest opacity-40">SIYAQ SCREEN MODE • OLED SAVE</div>
+    <div class="text-center space-y-2 opacity-60">
+      <i class="fa-solid fa-tv text-2xl text-[#F5A623]/70"></i>
+      <p id="oledLiveCounter" class="text-xs font-bold text-slate-400">الترجمة الفورية للشاشة نشطة في الخلفية</p>
+    </div>
+    <button type="button" onclick="toggleOledPowerSave(false)" class="py-2 px-4 text-xs font-black text-cosmo opacity-80">
+      <span data-i18n="exitOledSaveBtn">إظهار شاشة التحكم</span>
+    </button>
   </div>
 
   <!-- ================= الواجهة الرئيسية ================= -->
@@ -228,8 +286,7 @@
           </svg>
         </div>
 
-        <div class="flex items-center justify-end gap-1">
-          <span id="activeTierPill" class="hidden text-[10px] font-black text-cosmo px-2 py-0.5 rounded-full border border-[#F5A623]/40">PRO</span>
+        <div class="flex items-center justify-end">
           <button onclick="openView('subModal')" class="icon-tap py-1.5 px-2 flex items-center justify-center transition text-cosmo font-black text-sm" title="الاشتراك">
             <i class="fa-solid fa-cart-shopping text-lg"></i>
           </button>
@@ -240,41 +297,49 @@
     <!-- 2. جسم التطبيق -->
     <main class="flex-1 px-4 pt-2 flex flex-col gap-3">
 
-      <!-- محدد الأوضاع الثلاثة -->
-      <div class="py-1.5 px-1 flex items-center justify-between border-b border-[var(--border-col)] gap-1">
-        <button id="tabBtnPhone" onclick="switchMode('phone')" class="flex-1 py-2 text-cosmo font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all">
+      <!-- محدد الوضعين -->
+      <div class="py-1.5 px-2 flex items-center justify-around border-b border-[var(--border-col)]">
+        <button id="tabBtnPhone" onclick="switchMode('phone')" class="flex-1 py-2 text-cosmo font-black text-sm flex items-center justify-center gap-2 transition-all">
           <i class="fa-solid fa-mobile-screen-button"></i>
           <span data-i18n="modePhone">الهاتف (مجاني)</span>
         </button>
 
-        <button id="tabBtnTv" onclick="switchMode('tv')" class="flex-1 py-2 font-bold text-xs sm:text-sm text-[var(--text-muted)] flex items-center justify-center gap-1.5 transition-all">
+        <button id="tabBtnTv" onclick="switchMode('tv')" class="flex-1 py-2 font-bold text-sm text-[var(--text-muted)] flex items-center justify-center gap-2 transition-all">
           <i class="fa-solid fa-tv"></i>
           <span data-i18n="modeTv">تلفاز (احترافي)</span>
         </button>
+      </div>
 
-        <button id="tabBtnTvUltra" onclick="switchMode('tv_ultra')" class="flex-1 py-2 font-bold text-xs sm:text-sm text-[var(--text-muted)] flex items-center justify-center gap-1.5 transition-all">
-          <i class="fa-solid fa-bolt"></i>
-          <span data-i18n="modeTvUltra">التلفاز ألترا</span>
+      <!-- خيارا وضع التلفاز: وضع الكاميرا / وضع الشاشة -->
+      <div id="tvSubModeSelector" class="hidden grid grid-cols-2 gap-2 p-1 rounded-2xl clean-surface border border-[var(--border-col)]">
+        <button id="tvSubBtnCamera" onclick="selectTvSubMode('camera')" class="tv-submode-pill py-2 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-2 transition-all text-cosmo" style="background-color: rgba(245, 166, 35, 0.12);">
+          <i class="fa-solid fa-camera"></i>
+          <span data-i18n="tvSubCamera">وضع الكاميرا</span>
+        </button>
+
+        <button id="tvSubBtnScreen" onclick="selectTvSubMode('screen')" class="tv-submode-pill py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all text-[var(--text-muted)]" style="background-color: transparent;">
+          <i class="fa-solid fa-display"></i>
+          <span data-i18n="tvSubScreen">وضع الشاشة</span>
         </button>
       </div>
 
-      <!-- زر بدء التجربة المجانية (تفتح فئة Pro لمدة ساعتين) -->
+      <!-- زر بدء التجربة المجانية (ساعتين) في المنتصف بدون شرح -->
       <div id="trialActivationBox" class="hidden py-2 px-1 flex items-center justify-center">
         <button onclick="activateManualFreeTrial()" class="py-1.5 px-4 text-cosmo text-xs font-black active:scale-95 transition">
-          <span data-i18n="startFreeTrialBtn">بدء التجربة المجانية (فئة Pro)</span>
+          <span data-i18n="startFreeTrialBtn">بدء التجربة المجانية</span>
         </button>
       </div>
 
       <div id="trialBanner" class="hidden py-1 px-1 flex items-center justify-between">
         <div class="flex items-center gap-1.5 text-xs font-extrabold text-[var(--text-muted)]">
           <i class="fa-solid fa-clock text-cosmo"></i>
-          <span data-i18n="trialRemainingMsg">وقت تجربة Pro المتبقي:</span>
+          <span data-i18n="trialRemainingMsg">وقت التجربة المتبقي لوضع التلفاز:</span>
         </div>
         <span id="trialTimerText" class="text-xs font-mono font-black text-cosmo">120:00</span>
       </div>
 
       <!-- ================= شاشة 1: وضع اقتران التلفاز ================= -->
-      <div id="tvUnpairedSection" class="hidden flex-1 flex flex-col justify-center items-center text-center py-8 gap-6">
+      <div id="tvUnpairedSection" class="hidden flex-1 flex flex-col justify-center items-center text-center py-8 gap-7">
         <div class="flex items-center justify-center">
           <svg class="w-16 h-16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M8 20 V12 C8 9.8 9.8 8 12 8 H20" stroke="#F5A623" stroke-width="3.5" stroke-linecap="round"/>
@@ -294,10 +359,10 @@
           </svg>
         </div>
 
-        <div class="space-y-1.5 px-3">
-          <h3 id="pairModeHeading" class="text-base font-black">اقتران التلفاز (فئة Pro)</h3>
-          <p id="pairModeSubDesc" class="text-xs text-[var(--text-muted)] leading-relaxed">
-            التصوير بالكاميرا من الجوال وعرض الترجمة مباشرة على التلفاز (التلفاز يعرض فقط دون قراءة الشاشة)
+        <div class="space-y-1.5">
+          <h3 data-i18n="pairTvTitle" class="text-base font-black">اقتران التلفاز</h3>
+          <p id="pairModeHintText" class="text-[11px] text-[var(--text-muted)] font-bold">
+            الوضع المختار: وضع الكاميرا
           </p>
         </div>
 
@@ -313,12 +378,83 @@
         </div>
       </div>
 
-      <!-- ================= شاشة 2: الكاميرا المباشرة والترجمة (الهاتف + تلفاز احترافي Pro) ================= -->
+      <!-- ================= شاشة 2: وضع الشاشة الكاملة للتلفاز (بدون كاميرا - التلفاز يقرأ ويرسل للجوال) ================= -->
+      <div id="tvScreenModeSection" class="hidden flex-1 flex flex-col justify-between gap-3">
+        <div class="clean-surface rounded-3xl p-5 border border-[var(--border-col)] space-y-4 text-center flex-1 flex flex-col justify-center">
+          <div class="w-14 h-14 mx-auto rounded-2xl border border-[#F5A623]/40 flex items-center justify-center text-cosmo text-2xl">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+
+          <div class="space-y-1">
+            <div class="flex items-center justify-center gap-2">
+              <span id="screenModeLiveDot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <h3 id="screenModeStatusTitle" data-i18n="screenModeActiveTitle" class="text-sm font-black">وضع الشاشة الكاملة نشط</h3>
+            </div>
+            <p id="screenModeStatusSub" data-i18n="screenModeActiveDesc" class="text-[11px] text-[var(--text-muted)] leading-relaxed">
+              التلفاز يمسح الشاشة بالكامل ويرسل النصوص وأماكنها للجوال للترجمة الفورية وعرضها فوق النص الأصلي
+            </p>
+          </div>
+
+          <!-- إحصائيات اللحظة الحقيقية (عدد النصوص + سرعة الاستجابة بالمللي ثانية) -->
+          <div class="grid grid-cols-3 gap-2 pt-2 border-t border-[var(--border-col)] text-center">
+            <div class="p-2">
+              <div id="statBlocksCount" class="text-base font-black text-cosmo font-mono">0</div>
+              <div data-i18n="statBlocksLbl" class="text-[10px] text-[var(--text-muted)] font-bold">نصوص الشاشة</div>
+            </div>
+            <div class="p-2">
+              <div id="statLatencyMs" class="text-base font-black text-[var(--text-main)] font-mono">-- ms</div>
+              <div data-i18n="statSpeedLbl" class="text-[10px] text-[var(--text-muted)] font-bold">سرعة الترجمة</div>
+            </div>
+            <div class="p-2">
+              <div id="statEngineBadge" class="text-xs font-black text-cosmo pt-1 truncate">Google</div>
+              <div data-i18n="statEngineLbl" class="text-[10px] text-[var(--text-muted)] font-bold">المحرك النشط</div>
+            </div>
+          </div>
+
+          <!-- معاينة آخر النصوص المستلمة من شاشة التلفاز -->
+          <div id="screenLastBlocksPreview" class="rounded-2xl bg-black/40 border border-[var(--border-col)] p-3 text-right space-y-1.5 min-h-[76px] max-h-36 overflow-y-auto no-scrollbar">
+            <div data-i18n="waitingTvScreenBlocks" class="text-[11px] text-[var(--text-muted)] text-center py-3">
+              في انتظار وصول نصوص الشاشة من التلفاز...
+            </div>
+          </div>
+        </div>
+
+        <!-- أزرار التحكم السريعة لوضع الشاشة -->
+        <div class="grid grid-cols-2 gap-2.5 shrink-0">
+          <button id="screenPauseToggleBtn" onclick="toggleScreenModePause()" class="py-3 text-cosmo font-black text-xs flex items-center justify-center gap-2 active:scale-95 transition">
+            <i id="screenPauseIcon" class="fa-solid fa-pause"></i>
+            <span id="screenPauseLabel" data-i18n="pauseScreenReadBtn">إيقاف القراءة</span>
+          </button>
+
+          <button onclick="toggleOledPowerSave(true)" class="py-3 text-cosmo font-black text-xs flex items-center justify-center gap-2 active:scale-95 transition">
+            <i class="fa-solid fa-moon"></i>
+            <span data-i18n="oledSaveBtn">وضع الطاولة (شاشة سوداء)</span>
+          </button>
+        </div>
+
+        <div class="pt-2 border-t border-[var(--border-col)] flex items-center justify-between gap-3">
+          <button onclick="sendTestScreenOverlaySample()" class="px-3 py-2 text-cosmo text-xs font-black flex items-center gap-1.5 active:scale-95 transition">
+            <i class="fa-solid fa-vial"></i>
+            <span data-i18n="testOverlayBtn">تجربة فورية</span>
+          </button>
+          <button onclick="openView('subAppearanceModal')" class="flex-1 py-2 text-cosmo text-xs font-black flex items-center justify-center gap-2 active:scale-95 transition">
+            <i class="fa-solid fa-sliders"></i>
+            <span data-i18n="customizeTvBarBtn">تخصيص الترجمة</span>
+          </button>
+          <button onclick="unpairTvDevice()" class="px-3 py-2 text-rose-400 text-xs font-black active:scale-95 transition">
+            <span data-i18n="unpairBtn">إلغاء الاقتران</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= شاشة 3: الكاميرا المباشرة والترجمة ================= -->
       <div id="cameraWorkspaceSection" class="flex-1 flex flex-col gap-3">
 
+        <!-- نافذة الكاميرا -->
         <div id="cameraBox" onclick="triggerTapToFocus(event, this)" class="relative w-full h-56 bg-black rounded-3xl overflow-hidden border border-[var(--border-col)] shrink-0 transition-all duration-300 mx-auto cursor-pointer">
           <video id="mainVideo" autoplay playsinline muted class="w-full h-full object-cover"></video>
 
+          <!-- شاشة بدء تشغيل الكاميرا -->
           <div id="camCover" class="absolute inset-0 clean-surface flex flex-col items-center justify-center p-4 text-center z-20">
             <button onclick="startCameraFeed(); event.stopPropagation();" class="py-3 px-5 text-cosmo font-black text-sm active:scale-95 transition flex flex-col items-center gap-3">
               <svg class="w-12 h-12" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -331,6 +467,7 @@
             </button>
           </div>
 
+          <!-- مستطيل تحديد منطقة الترجمة -->
           <div id="roiRect" style="left: 8%; top: 55%; width: 84%; height: 28%;" class="hidden absolute border-2 border-[#F5A623] bg-[#F5A623]/10 rounded-xl z-20 touch-none flex items-center justify-center">
             <div id="roiHandle" class="w-6 h-6 bg-[#F5A623] text-black rounded-tl-lg absolute bottom-0 right-0 flex items-center justify-center cursor-nwse-resize">
               <i class="fa-solid fa-up-right-and-down-left-from-center text-[9px]"></i>
@@ -338,11 +475,13 @@
           </div>
         </div>
 
+        <!-- كانفاس مخفي لمعالجة مربع القراءة فقط -->
         <canvas id="rawRoiCanvas" class="hidden"></canvas>
         <canvas id="ocrCanvas" class="hidden"></canvas>
         <canvas id="fastOcrCanvas" class="hidden"></canvas>
         <canvas id="motionCheckCanvas" width="40" height="14" class="hidden"></canvas>
 
+        <!-- لوحة عرض الترجمة بحدود خلفية متوازنة مع طول وارتفاع النص -->
         <div id="subtitleCard" class="flex-1 min-h-[200px] clean-surface rounded-3xl p-5 flex flex-col justify-center items-center text-center relative overflow-hidden border border-[var(--border-col)]">
           <div class="absolute top-3 left-3 z-10">
             <button onclick="enterFullLandscape()" class="py-1 px-2 text-xs font-black flex items-center gap-1.5 text-cosmo active:scale-95 transition">
@@ -358,6 +497,7 @@
           </div>
         </div>
 
+        <!-- أزرار التحكم الرئيسية -->
         <div class="grid grid-cols-2 gap-2.5 shrink-0 pt-1">
           <button id="mainTranslateBtn" onclick="toggleOcrScanning()" class="py-3 text-cosmo font-black text-base flex items-center justify-center gap-2 active:scale-95 transition">
             <i id="translateBtnIcon" class="fa-solid fa-play"></i>
@@ -370,6 +510,7 @@
           </button>
         </div>
 
+        <!-- شريط التحكم بشاشة التلفاز -->
         <div id="phoneTvControlStrip" class="hidden pt-3 border-t border-[var(--border-col)] flex items-center justify-between gap-3">
           <button onclick="enterFullLandscape()" class="px-3 py-2.5 text-cosmo text-xs font-black flex items-center gap-1.5 active:scale-95 transition">
             <i class="fa-solid fa-expand"></i>
@@ -386,96 +527,15 @@
 
       </div>
 
-      <!-- ================= شاشة 3: مساحة عمل «التلفاز ألترا» (فئة Ultra - بدون كاميرا) ================= -->
-      <div id="tvUltraWorkspaceSection" class="hidden flex-1 flex flex-col gap-3">
-
-        <div class="clean-surface rounded-3xl p-4 border border-[var(--border-col)] flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-2xl bg-[#F5A623]/10 flex items-center justify-center text-cosmo">
-              <i class="fa-solid fa-bolt text-base"></i>
-            </div>
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-black">التلفاز ألترا (فئة Ultra)</span>
-                <span class="w-2 h-2 rounded-full bg-emerald-400 live-pulse-dot"></span>
-              </div>
-              <p id="ultraConnectionSub" class="text-[11px] text-[var(--text-muted)]">
-                التلفاز يقرأ الشاشة ويرسل النص • الكاميرا مغلقة تماماً
-              </p>
-            </div>
-          </div>
-          <span id="ultraEngineBadge" class="text-[10px] font-black text-cosmo px-2.5 py-1 rounded-xl border border-[#F5A623]/30">
-            سريع
-          </span>
-        </div>
-
-        <div class="flex-1 min-h-[190px] clean-surface rounded-3xl p-4 border border-[var(--border-col)] flex flex-col justify-between gap-3">
-          <div class="space-y-1.5 text-left" dir="ltr">
-            <div class="flex items-center justify-between text-[10px] font-bold text-[var(--text-muted)]">
-              <span>TV SCREEN OCR INPUT</span>
-              <span id="ultraLatencyTag" class="font-mono text-cosmo">0 ms</span>
-            </div>
-            <div id="ultraRawEngOut" class="text-xs sm:text-sm font-mono text-slate-300 bg-black/40 rounded-2xl p-3 min-h-[54px] border border-[var(--border-col)] flex items-center">
-              Waiting for TV screen text...
-            </div>
-          </div>
-
-          <div class="space-y-1.5 text-right" dir="rtl">
-            <div class="text-[10px] font-bold text-[var(--text-muted)]">الترجمة المرسلة فوق نص التلفاز مباشرة</div>
-            <div id="ultraArabicOut" class="text-base sm:text-lg font-black text-cosmo bg-black/50 rounded-2xl p-3.5 min-h-[64px] border border-[#F5A623]/30 flex items-center justify-center text-center">
-              في انتظار حوارات اللعبة من التلفاز...
-            </div>
-          </div>
-        </div>
-
-        <div class="clean-surface rounded-3xl p-4 border border-[var(--border-col)] space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black text-cosmo flex items-center gap-1.5">
-              <i class="fa-solid fa-vector-square"></i>
-              <span>منطقة التقاط النص في التلفاز</span>
-            </span>
-            <span id="ultraRoiLabel" class="text-[11px] font-mono text-[var(--text-muted)]">أسفل الشاشة (72% - 92%)</span>
-          </div>
-
-          <div class="grid grid-cols-3 gap-2 text-center text-xs font-black">
-            <button onclick="setUltraTvCaptureZone('bottom')" id="ultraZoneBottom" class="zone-choice-btn py-2 rounded-xl border border-[#F5A623] text-cosmo">
-              أسفل (حوارات)
-            </button>
-            <button onclick="setUltraTvCaptureZone('center')" id="ultraZoneCenter" class="zone-choice-btn py-2 rounded-xl border border-[var(--border-col)] text-[var(--text-muted)]">
-              المنتصف
-            </button>
-            <button onclick="setUltraTvCaptureZone('top')" id="ultraZoneTop" class="zone-choice-btn py-2 rounded-xl border border-[var(--border-col)] text-[var(--text-muted)]">
-              الأعلى
-            </button>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2.5 shrink-0">
-          <button id="ultraToggleStreamBtn" onclick="toggleUltraTvStream()" class="py-3 text-cosmo font-black text-sm flex items-center justify-center gap-2 active:scale-95 transition">
-            <i id="ultraStreamIcon" class="fa-solid fa-pause"></i>
-            <span id="ultraStreamLabel">إيقاف مؤقت</span>
-          </button>
-
-          <button onclick="openView('subAppearanceModal')" class="py-3 text-cosmo font-black text-sm flex items-center justify-center gap-2 active:scale-95 transition">
-            <i class="fa-solid fa-sliders"></i>
-            <span data-i18n="customizeTvBarBtn">تخصيص الترجمة</span>
-          </button>
-        </div>
-
-        <div class="pt-1 flex justify-center">
-          <button onclick="unpairTvDevice()" class="px-4 py-2 text-rose-400 text-xs font-black active:scale-95 transition">
-            <span data-i18n="unpairBtn">إلغاء الاقتران</span>
-          </button>
-        </div>
-
-      </div>
-
     </main>
 
   </div>
 
+  <!-- ========================================================================================= -->
   <!-- ================= 3. شاشة الملائمة الكاملة ================= -->
+  <!-- ========================================================================================= -->
   <div id="landscapeFullOverlay" class="hidden fixed inset-0 z-[90] bg-[#09090D] text-white flex flex-col justify-between p-3 sm:p-5">
+
     <div class="flex items-center justify-between px-4 py-2.5 bg-[#13131B] rounded-2xl border border-slate-800 shrink-0">
       <div class="flex items-center gap-2.5" dir="ltr">
         <svg class="h-5 w-auto" viewBox="8 28 84 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SIYAQ">
@@ -527,7 +587,9 @@
     </div>
   </div>
 
+  <!-- ========================================================================================= -->
   <!-- ================= 4. كاميرا مسح رمز الاستجابة السريعة من الجوال ================= -->
+  <!-- ========================================================================================= -->
   <div id="qrScannerModal" class="hidden fixed inset-0 z-50 bg-black/95 text-white flex flex-col justify-between p-5 max-w-md mx-auto">
     <div class="flex items-center justify-between pb-3">
       <h3 data-i18n="scanQrModalTitle" class="text-sm font-black">مسح الرمز من التلفاز</h3>
@@ -557,7 +619,9 @@
     </button>
   </div>
 
+  <!-- ========================================================================================= -->
   <!-- ================= 5. القائمة الرئيسية للإعدادات ================= -->
+  <!-- ========================================================================================= -->
   <div id="settingsMainModal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end sm:items-center justify-center">
     <div class="bg-[var(--bg-page)] w-full max-w-md rounded-t-3xl sm:rounded-3xl p-5 space-y-4 border-t border-[var(--border-col)] max-h-[88vh] overflow-y-auto no-scrollbar">
 
@@ -626,7 +690,9 @@
     </div>
   </div>
 
-  <!-- ================= 6. نافذة تغيير القارئ ومحرك الترجمة + مكتبة الأوفلاين الحقيقية ================= -->
+  <!-- ========================================================================================= -->
+  <!-- ================= 6. نافذة تغيير القارئ ومحرك الترجمة (محركات حقيقية + أوفلاين + BYOK) ================= -->
+  <!-- ========================================================================================= -->
   <div id="engineSettingsModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-[var(--bg-page)] w-full max-w-md rounded-3xl p-5 space-y-4 text-right border border-[var(--border-col)] max-h-[90vh] overflow-y-auto no-scrollbar">
       <div class="flex items-center justify-between border-b border-[var(--border-col)] pb-3">
@@ -642,102 +708,121 @@
         </select>
       </div>
 
-      <div class="space-y-2">
-        <label class="text-xs font-extrabold block text-cosmo">2. مكتبة الترجمة المحلية (أوفلاين بدون إنترنت):</label>
-        <div class="rounded-2xl clean-surface border border-[var(--border-col)] p-3.5 space-y-2.5">
-          <div class="flex items-center justify-between">
-            <div>
-              <div class="text-xs font-black text-[var(--text-main)]">حزمة Opus-MT Neural (EN → AR)</div>
-              <div id="offlineModelStatusText" class="text-[11px] text-[var(--text-muted)]">
-                تُحفظ في ذاكرة جهازك للترجمة الفورية بدون نت (~55 MB)
-              </div>
-            </div>
-            <i id="offlineModelBadgeIcon" class="fa-solid fa-cloud-arrow-down text-cosmo text-base"></i>
+      <!-- قسم المحرك القابل للتنزيل (أوفلاين فائق السرعة بدون إنترنت) -->
+      <div class="rounded-2xl clean-surface border border-[var(--border-col)] p-3.5 space-y-2.5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-bolt text-cosmo text-xs"></i>
+            <span data-i18n="offlinePackTitle" class="text-xs font-black">المحرك القابل للتنزيل (أوفلاين)</span>
           </div>
+          <span id="offlineEngineBadge" class="text-[10px] font-bold text-[var(--text-muted)]">~28 MB</span>
+        </div>
 
-          <div id="offlineDownloadProgressWrap" class="hidden space-y-1">
-            <div class="w-full h-2 bg-black/50 rounded-full overflow-hidden border border-[var(--border-col)]">
-              <div id="offlineDownloadProgressBar" class="h-full bg-[#F5A623] transition-all duration-200" style="width: 0%;"></div>
-            </div>
-            <div class="flex justify-between text-[10px] font-mono text-[var(--text-muted)]">
-              <span id="offlineDownloadFileLbl">جاري تحضير المكتبة...</span>
-              <span id="offlineDownloadPctLbl">0%</span>
-            </div>
+        <p data-i18n="offlinePackDesc" class="text-[11px] text-[var(--text-muted)] leading-relaxed">
+          حمّل نموذج الترجمة العصبي على جهازك لترجمة فورية بأجزاء من الثانية بدون إنترنت.
+        </p>
+
+        <div id="offlineDownloadProgressWrap" class="hidden space-y-1">
+          <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+            <div id="offlineDownloadProgressBar" class="h-full bg-[#F5A623] transition-all duration-200" style="width: 0%;"></div>
           </div>
-
-          <div class="flex items-center justify-between pt-1">
-            <button type="button" id="btnDownloadOfflinePack" onclick="downloadRealOfflineTranslationLibrary()" class="py-1.5 px-3 text-cosmo text-xs font-black flex items-center gap-1.5">
-              <i class="fa-solid fa-download"></i>
-              <span id="btnDownloadOfflineLabel">تنزيل المكتبة وحفظها</span>
-            </button>
-
-            <button type="button" id="btnDeleteOfflinePack" onclick="deleteOfflineTranslationLibrary()" class="hidden py-1.5 px-2 text-rose-400 text-[11px] font-extrabold">
-              حذف الحزمة
-            </button>
+          <div class="flex justify-between text-[10px] font-mono text-cosmo">
+            <span id="offlineDownloadStatusText">جاري التنزيل...</span>
+            <span id="offlineDownloadPctText">0%</span>
           </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-1">
+          <button type="button" id="downloadOfflineEngineBtn" onclick="downloadOfflineTranslationModel()" class="py-1.5 px-2 text-cosmo text-xs font-black flex items-center gap-1.5">
+            <i class="fa-solid fa-cloud-arrow-down"></i>
+            <span id="downloadOfflineBtnLabel" data-i18n="downloadEngineBtn">تنزيل المحرك الآن</span>
+          </button>
+
+          <button type="button" id="deleteOfflineEngineBtn" onclick="deleteOfflineTranslationModel()" class="hidden py-1 px-2 text-rose-400 text-[11px] font-bold">
+            <span data-i18n="deleteEngineBtn">حذف</span>
+          </button>
         </div>
       </div>
 
       <div class="space-y-2">
-        <label data-i18n="transEngineLabel" class="text-xs font-extrabold block text-cosmo">3. محرك الترجمة النشط:</label>
+        <label data-i18n="transEngineLabel" class="text-xs font-extrabold block text-cosmo">2. محرك الترجمة:</label>
         <input type="hidden" id="translatorEngineSelect" value="google_gtx" />
 
         <div class="rounded-2xl clean-surface border border-[var(--border-col)] divide-y divide-[var(--border-col)] overflow-hidden">
+          <!-- المحرك القابل للتنزيل أوفلاين -->
           <button type="button" onclick="selectCustomTranslatorEngine('offline_neural')" data-eng="offline_neural" class="engine-choice-row w-full py-3 px-3.5 flex items-center justify-between text-xs font-extrabold transition">
             <span class="flex items-center gap-2">
-              <span>المكتبة المحلية (أوفلاين بدون نت)</span>
-              <span id="offlineRowTag" class="text-[10px] font-black text-[var(--text-muted)]">تتطلب تنزيل</span>
+              <span data-i18n="engOfflineOpt">المحرك المحلي المحمّل (أوفلاين)</span>
+              <span class="text-[10px] font-black text-emerald-400">OFFLINE</span>
             </span>
             <i class="eng-status-icon fa-regular fa-circle text-[var(--text-muted)] text-sm"></i>
           </button>
 
+          <!-- محركات مجانية بدون مفتاح -->
           <button type="button" onclick="selectCustomTranslatorEngine('google_gtx')" data-eng="google_gtx" class="engine-choice-row w-full py-3 px-3.5 flex items-center justify-between text-xs font-extrabold transition">
-            <span>Google Translate (مجاني - سريع)</span>
+            <span data-i18n="engGoogleOpt">Google Translate (مجاني)</span>
             <i class="eng-status-icon fa-solid fa-circle-check text-cosmo text-sm"></i>
           </button>
 
-          <button type="button" onclick="selectCustomTranslatorEngine('deepl_free')" data-eng="deepl_free" class="engine-choice-row w-full py-3 px-3.5 flex items-center justify-between text-xs font-extrabold transition">
-            <span>DeepL Context (مجاني - سياق واقعي)</span>
-            <i class="eng-status-icon fa-regular fa-circle text-[var(--text-muted)] text-sm"></i>
-          </button>
-
           <button type="button" onclick="selectCustomTranslatorEngine('microsoft_edge')" data-eng="microsoft_edge" class="engine-choice-row w-full py-3 px-3.5 flex items-center justify-between text-xs font-extrabold transition">
-            <span>Microsoft Translator (مجاني)</span>
+            <span data-i18n="engMicrosoftOpt">Microsoft Translator (مجاني)</span>
             <i class="eng-status-icon fa-regular fa-circle text-[var(--text-muted)] text-sm"></i>
           </button>
 
+          <!-- DeepL مجاني بمفتاح المستخدم -->
+          <button type="button" onclick="selectCustomTranslatorEngine('deepl_free')" data-eng="deepl_free" class="engine-choice-row w-full py-3 px-3.5 flex items-center justify-between text-xs font-extrabold transition">
+            <span class="flex items-center gap-2">
+              <span data-i18n="engDeepLOpt">DeepL Context (مجاني بمفتاحك)</span>
+              <span class="text-[10px] font-black text-cosmo">FREE KEY</span>
+            </span>
+            <i class="eng-status-icon fa-regular fa-circle text-[var(--text-muted)] text-sm"></i>
+          </button>
+
+          <!-- محركات الذكاء الاصطناعي على حساب المستخدم (BYOK) -->
           <button type="button" onclick="selectCustomTranslatorEngine('pro_gemini_2_5_flash')" data-eng="pro_gemini_2_5_flash" class="engine-choice-row w-full py-3 px-3.5 flex items-center justify-between text-xs font-extrabold transition">
             <span class="flex items-center gap-2">
               <span>Gemini 2.5 Flash</span>
-              <span class="text-[10px] font-black text-cosmo">PRO</span>
+              <span class="text-[10px] font-black text-cosmo">API KEY</span>
             </span>
-            <i class="eng-pro-badge-icon fa-solid fa-crown text-cosmo text-xs"></i>
+            <i class="eng-status-icon fa-regular fa-circle text-[var(--text-muted)] text-sm"></i>
           </button>
 
           <button type="button" onclick="selectCustomTranslatorEngine('pro_gpt_4o_mini')" data-eng="pro_gpt_4o_mini" class="engine-choice-row w-full py-3 px-3.5 flex items-center justify-between text-xs font-extrabold transition">
             <span class="flex items-center gap-2">
               <span>GPT-4o mini</span>
-              <span class="text-[10px] font-black text-cosmo">PRO</span>
+              <span class="text-[10px] font-black text-cosmo">API KEY</span>
             </span>
-            <i class="eng-pro-badge-icon fa-solid fa-crown text-cosmo text-xs"></i>
+            <i class="eng-status-icon fa-regular fa-circle text-[var(--text-muted)] text-sm"></i>
           </button>
 
           <button type="button" onclick="selectCustomTranslatorEngine('pro_claude_3_5_haiku')" data-eng="pro_claude_3_5_haiku" class="engine-choice-row w-full py-3 px-3.5 flex items-center justify-between text-xs font-extrabold transition">
             <span class="flex items-center gap-2">
               <span>Claude 3.5 Haiku</span>
-              <span class="text-[10px] font-black text-cosmo">PRO</span>
+              <span class="text-[10px] font-black text-cosmo">API KEY</span>
             </span>
-            <i class="eng-pro-badge-icon fa-solid fa-crown text-cosmo text-xs"></i>
+            <i class="eng-status-icon fa-regular fa-circle text-[var(--text-muted)] text-sm"></i>
           </button>
 
           <button type="button" onclick="selectCustomTranslatorEngine('pro_deepseek_v3')" data-eng="pro_deepseek_v3" class="engine-choice-row w-full py-3 px-3.5 flex items-center justify-between text-xs font-extrabold transition">
             <span class="flex items-center gap-2">
               <span>DeepSeek V3</span>
-              <span class="text-[10px] font-black text-cosmo">PRO</span>
+              <span class="text-[10px] font-black text-cosmo">API KEY</span>
             </span>
-            <i class="eng-pro-badge-icon fa-solid fa-crown text-cosmo text-xs"></i>
+            <i class="eng-status-icon fa-regular fa-circle text-[var(--text-muted)] text-sm"></i>
           </button>
         </div>
+      </div>
+
+      <!-- خانة إدخال مفتاح API الخاص بالمستخدم (تظهر فقط عند اختيار محرك يتطلب مفتاحاً) -->
+      <div id="userByokKeyBox" class="hidden rounded-2xl clean-surface border border-[#F5A623]/40 p-3.5 space-y-2">
+        <div class="flex items-center justify-between">
+          <label id="userByokProviderLabel" class="text-xs font-black text-cosmo">مفتاح API الخاص بك:</label>
+          <span class="text-[10px] text-[var(--text-muted)]">يُحفظ على جهازك فقط</span>
+        </div>
+        <input id="userApiKeyInput" type="password" dir="ltr" placeholder="Paste your API key here..." class="w-full py-2.5 px-3 rounded-xl bg-black/50 border border-[var(--border-col)] text-xs font-mono text-white outline-none focus:border-[#F5A623]" />
+        <p id="userByokHintText" class="text-[10px] text-[var(--text-muted)] leading-relaxed">
+          المفتاح يُستخدم للاتصال المباشر بسيرفر المزود من جهازك وعلى حسابك الشخصي.
+        </p>
       </div>
 
       <button onclick="applyEngineChanges()" class="w-full py-3 text-cosmo text-sm font-black">
@@ -746,8 +831,11 @@
     </div>
   </div>
 
+  <!-- ========================================================================================= -->
   <!-- ================= 7. نافذة تعديل مظهر الترجمة ================= -->
+  <!-- ========================================================================================= -->
   <div id="subAppearanceModal" class="hidden fixed inset-0 z-50 bg-[#050507] text-white flex flex-col justify-between max-w-md mx-auto overflow-y-auto p-4 no-scrollbar">
+
     <div class="flex items-center justify-between pb-3 border-b border-slate-800 shrink-0">
       <button onclick="saveAndConfirmSettings('subAppearanceModal')" class="py-1 px-2 text-cosmo text-xs font-black">
         <span data-i18n="applyAndSaveBtn">تطبيق وحفظ</span>
@@ -759,28 +847,29 @@
     </div>
 
     <div class="space-y-4 my-3 text-right">
+
       <div class="bg-[#0C0C10] rounded-3xl p-4 space-y-3 border border-slate-800">
         <div id="previewStageContainer" class="h-36 bg-black rounded-2xl relative overflow-hidden border border-slate-800">
           <div id="previewMockSubBox" class="balanced-sub-box" style="position: absolute; left: 50%; top: 82%; transform: translate(-50%, -50%); max-width: 85%; background-color: rgba(0,0,0,0.85); padding: 10px 15px; border-radius: 0px;">
-            <span id="previewMockSubText" class="balanced-sub-text" style="font-size: 20px; color: #FFFFFF; font-weight: 800; font-family: 'Tajawal', sans-serif;">
+            <span id="previewMockSubText" data-i18n="livePreviewSample" class="balanced-sub-text" style="font-size: 20px; color: #FFFFFF; font-weight: 800; font-family: 'Tajawal', sans-serif;">
               معاينة حية للترجمة
             </span>
           </div>
         </div>
 
         <div class="grid grid-cols-3 text-center text-xs font-bold border-b border-slate-800 pb-2.5">
-          <button onclick="setQuickAlign('top')" id="alignBtnTop" class="py-1 text-slate-400">الأعلى</button>
-          <button onclick="setQuickAlign('center')" id="alignBtnCenter" class="py-1 text-slate-400">المنتصف</button>
-          <button onclick="setQuickAlign('bottom')" id="alignBtnBottom" class="py-1 text-cosmo font-black">الأسفل</button>
+          <button onclick="setQuickAlign('top')" id="alignBtnTop" data-i18n="alignTop" class="py-1 text-slate-400">الأعلى</button>
+          <button onclick="setQuickAlign('center')" id="alignBtnCenter" data-i18n="alignCenter" class="py-1 text-slate-400">المنتصف</button>
+          <button onclick="setQuickAlign('bottom')" id="alignBtnBottom" data-i18n="alignBottom" class="py-1 text-cosmo font-black">الأسفل</button>
         </div>
 
         <div class="flex items-center justify-between pt-1">
           <input type="checkbox" id="largeClearToggle" onchange="toggleLargeClearSub(this.checked)" class="w-5 h-5 accent-[#F5A623] rounded cursor-pointer" />
-          <span class="text-xs font-bold">نص كبير وواضح</span>
+          <span data-i18n="largeTextToggle" class="text-xs font-bold">نص كبير وواضح</span>
         </div>
       </div>
 
-      <div class="text-xs font-bold text-slate-400 px-1">النص</div>
+      <div data-i18n="textSectionTitle" class="text-xs font-bold text-slate-400 px-1">النص</div>
       <div class="bg-[#0C0C10] rounded-3xl p-4 space-y-4 border border-slate-800">
         <div class="flex items-center justify-between border-b border-slate-800 pb-3">
           <select id="subFontFamily" onchange="applySubtitleStyles()" class="bg-slate-900 border border-slate-700 px-3 py-1.5 rounded-xl text-cosmo text-xs font-black outline-none">
@@ -789,18 +878,18 @@
             <option value="'Changa', sans-serif">Changa</option>
             <option value="'Almarai', sans-serif">Almarai</option>
           </select>
-          <span class="text-xs font-bold">الخط</span>
+          <span data-i18n="fontLabel" class="text-xs font-bold">الخط</span>
         </div>
 
         <div class="flex items-center justify-between border-b border-slate-800 pb-3">
           <input type="checkbox" id="subBoldCheck" checked onchange="applySubtitleStyles()" class="w-5 h-5 accent-[#F5A623] rounded cursor-pointer" />
-          <span class="text-xs font-bold">عريض وواضح</span>
+          <span data-i18n="boldLabel" class="text-xs font-bold">عريض وواضح</span>
         </div>
 
         <div class="space-y-2 border-b border-slate-800 pb-3">
           <div class="flex justify-between text-xs font-bold">
             <span id="lblFontSize">24px</span>
-            <span>الحجم</span>
+            <span data-i18n="sizeLabel">الحجم</span>
           </div>
           <input type="range" id="rngFontSize" min="10" max="42" value="24" oninput="applySubtitleStyles()" class="w-full" />
         </div>
@@ -810,32 +899,32 @@
             <i class="fa-solid fa-eye-dropper text-xs"></i>
             <span id="textColorPreviewCircle" class="w-5 h-5 rounded-md border border-white/40" style="background-color: #FFFFFF;"></span>
           </button>
-          <span class="text-xs font-bold">لون النص</span>
+          <span data-i18n="textColorLabel" class="text-xs font-bold">لون النص</span>
         </div>
 
         <div class="space-y-2">
           <div class="flex justify-between text-xs font-bold">
             <span id="lblTextOpacity">100%</span>
-            <span>شفافية النص</span>
+            <span data-i18n="textOpacityLabel">شفافية النص</span>
           </div>
           <input type="range" id="rngTextOpacity" min="20" max="100" value="100" oninput="applySubtitleStyles()" class="w-full" />
         </div>
       </div>
 
-      <div class="text-xs font-bold text-slate-400 px-1">خلفية الشريط</div>
+      <div data-i18n="bgSectionTitle" class="text-xs font-bold text-slate-400 px-1">خلفية الشريط</div>
       <div class="bg-[#0C0C10] rounded-3xl p-4 space-y-4 border border-slate-800">
         <div class="flex items-center justify-between border-b border-slate-800 pb-3">
           <button onclick="openColorSpectrumPicker('bg')" class="flex items-center gap-2 px-2 py-1 text-cosmo">
             <i class="fa-solid fa-eye-dropper text-xs"></i>
             <span id="bgColorPreviewCircle" class="w-5 h-5 rounded-md border border-white/40" style="background-color: #000000;"></span>
           </button>
-          <span class="text-xs font-bold">لون الخلفية</span>
+          <span data-i18n="bgColorLabel" class="text-xs font-bold">لون الخلفية</span>
         </div>
 
         <div class="space-y-2 border-b border-slate-800 pb-3">
           <div class="flex justify-between text-xs font-bold">
             <span id="lblBgOpacity">85%</span>
-            <span>درجة التعتيم</span>
+            <span data-i18n="bgOpacityLabel">درجة التعتيم</span>
           </div>
           <input type="range" id="rngBgOpacity" min="0" max="100" value="85" oninput="applySubtitleStyles()" class="w-full" />
         </div>
@@ -843,7 +932,7 @@
         <div class="space-y-2 border-b border-slate-800 pb-3">
           <div class="flex justify-between text-xs font-bold">
             <span id="lblBgWidth">85%</span>
-            <span>أقصى عرض للشريط</span>
+            <span data-i18n="bgWidthLabel">أقصى عرض للشريط</span>
           </div>
           <input type="range" id="rngBgWidth" min="25" max="100" value="85" oninput="applySubtitleStyles()" class="w-full" />
         </div>
@@ -851,18 +940,18 @@
         <div class="space-y-2">
           <div class="flex justify-between text-xs font-bold">
             <span id="lblBgHeight">10px</span>
-            <span>حواف الخلفية</span>
+            <span data-i18n="bgHeightLabel">حواف الخلفية</span>
           </div>
           <input type="range" id="rngBgHeight" min="2" max="32" value="10" oninput="applySubtitleStyles()" class="w-full" />
         </div>
       </div>
 
-      <div class="text-xs font-bold text-slate-400 px-1">موقع الترجمة على الشاشة</div>
+      <div data-i18n="tvPosSectionTitle" class="text-xs font-bold text-slate-400 px-1">موقع الترجمة على الشاشة</div>
       <div class="bg-[#0C0C10] rounded-3xl p-4 space-y-4 border border-slate-800">
         <div class="space-y-2 border-b border-slate-800 pb-3">
           <div class="flex justify-between text-xs font-bold">
             <span id="lblPosX">50%</span>
-            <span>الموقع الأفقي</span>
+            <span data-i18n="posXLabel">الموقع الأفقي</span>
           </div>
           <input type="range" id="rngPosX" min="15" max="85" value="50" oninput="applySubtitleStyles()" class="w-full" />
         </div>
@@ -870,7 +959,7 @@
         <div class="space-y-2">
           <div class="flex justify-between text-xs font-bold">
             <span id="lblPosY">82%</span>
-            <span>الموقع العمودي</span>
+            <span data-i18n="posYLabel">الموقع العمودي</span>
           </div>
           <input type="range" id="rngPosY" min="15" max="90" value="82" oninput="applySubtitleStyles()" class="w-full" />
         </div>
@@ -878,16 +967,19 @@
 
       <div class="grid grid-cols-2 gap-2.5 pt-1">
         <button onclick="saveAndConfirmSettings('subAppearanceModal')" class="py-3 text-cosmo font-black text-sm">
-          <span>تطبيق وحفظ</span>
+          <span data-i18n="applyAndSaveBtn">تطبيق وحفظ</span>
         </button>
         <button onclick="resetSubtitleStyleDefaults()" class="py-3 text-slate-400 font-bold text-xs">
-          <span>استعادة الافتراضي</span>
+          <span data-i18n="resetDefaultsBtn">استعادة الافتراضي</span>
         </button>
       </div>
+
     </div>
   </div>
 
+  <!-- ========================================================================================= -->
   <!-- ================= 8. نافذة القطارة وطيف الألوان ================= -->
+  <!-- ========================================================================================= -->
   <div id="colorPickerModal" class="hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm flex items-end justify-center">
     <div class="bg-[#181A20] text-white w-full max-w-md rounded-t-3xl p-5 space-y-4 border-t border-slate-700">
       <div class="flex items-center justify-between">
@@ -899,9 +991,9 @@
       </div>
 
       <div class="grid grid-cols-3 text-center text-xs font-bold border-b border-slate-700 pb-2">
-        <button onclick="switchColorTab('spectrum')" id="tabSpec" class="py-1 text-cosmo font-black">الطيف</button>
-        <button onclick="switchColorTab('grid')" id="tabGrid" class="py-1 text-slate-400">الشبكة</button>
-        <button onclick="switchColorTab('sliders')" id="tabSliders" class="py-1 text-slate-400">مخصص</button>
+        <button onclick="switchColorTab('spectrum')" id="tabSpec" data-i18n="colorTabSpectrum" class="py-1 text-cosmo font-black">الطيف</button>
+        <button onclick="switchColorTab('grid')" id="tabGrid" data-i18n="colorTabGrid" class="py-1 text-slate-400">الشبكة</button>
+        <button onclick="switchColorTab('sliders')" id="tabSliders" data-i18n="colorTabSliders" class="py-1 text-slate-400">مخصص</button>
       </div>
 
       <div id="spectrumPanel" class="relative flex justify-center">
@@ -928,20 +1020,22 @@
 
       <div class="flex items-center justify-between pt-2 border-t border-slate-800">
         <button onclick="closeView('colorPickerModal')" class="px-5 py-2 text-cosmo font-black text-sm">
-          <span>اعتماد اللون</span>
+          <span data-i18n="confirmColorBtn">اعتماد اللون</span>
         </button>
         <div id="selectedColorBigSwatch" class="w-12 h-12 rounded-2xl border-2 border-white shadow-md" style="background-color: #FFFFFF;"></div>
       </div>
     </div>
   </div>
 
+  <!-- ========================================================================================= -->
   <!-- ================= 9. شرح طريقة الاقتران وتحميل تطبيق سياق للتلفزيون ================= -->
+  <!-- ========================================================================================= -->
   <div id="tvGuideModal" class="hidden fixed inset-0 z-50 bg-[#050507] text-white flex flex-col justify-between p-5 max-w-md mx-auto overflow-y-auto no-scrollbar">
     <div class="flex items-center justify-between border-b border-slate-800 pb-3 shrink-0">
       <button onclick="closeView('tvGuideModal')" class="py-1 px-2 text-cosmo text-xs font-black">
-        <span>إغلاق</span>
+        <span data-i18n="closeBtn">إغلاق</span>
       </button>
-      <h3 class="text-sm font-black">طريقة الاقتران وتحميل تطبيق التلفاز</h3>
+      <h3 data-i18n="tvGuideTitle" class="text-sm font-black">طريقة الاقتران وتحميل تطبيق التلفاز</h3>
     </div>
 
     <div class="space-y-3.5 my-4 flex-1 text-right">
@@ -963,89 +1057,81 @@
       </div>
 
       <div class="bg-[#0C0C10] border border-slate-800 rounded-2xl p-4 space-y-2">
-        <div class="text-sm font-black text-cosmo">1. وضع التلفاز ألترا (فئة Ultra - بدون كاميرا)</div>
+        <div data-i18n="tvGuideSec2Title" class="text-sm font-black text-cosmo">1. خطوات التثبيت على شاشة التلفاز</div>
         <div class="text-[11px] text-slate-200 space-y-1.5 pt-1 leading-relaxed">
-          <div>• في PS5: أوقف <strong>HDCP</strong> من <em>الإعدادات &gt; النظام &gt; HDMI</em> لتمكين التلفاز من قراءة الشاشة.</div>
-          <div>• اقترن بالتلفاز من تبويب <strong>التلفاز ألترا</strong> وسيقرأ التلفاز النص ويرسله لجوالك لترجمته وعرضه مباشرة فوق النص الأصلي بدون كاميرا.</div>
+          <div>• حمّل تطبيق <strong>Downloader by AFTVnews</strong> من متجر Google Play في التلفاز.</div>
+          <div>• ثبّت تطبيق <strong>SIYAQ TV</strong> وفعّل خيار <strong>«تفعيل صلاحية الشاشة»</strong> لمرة واحدة.</div>
         </div>
       </div>
 
       <div class="bg-[#0C0C10] border border-slate-800 rounded-2xl p-4 space-y-2">
-        <div class="text-sm font-black text-white">2. وضع التلفاز بالكاميرا (فئة Pro)</div>
+        <div data-i18n="tvGuideSec1Title" class="text-sm font-black text-white">2. طريقة الاقتران واللعب المباشر</div>
         <div class="text-[11px] text-slate-300 space-y-1.5 pt-1 leading-relaxed">
-          <div>• التلفاز يعمل كشاشة عرض فقط ولا يقرأ الشاشة.</div>
-          <div>• وجّه كاميرا الجوال نحو حوار اللعبة وستظهر الترجمة العربية مباشرة على شاشة التلفاز.</div>
+          <div data-i18n="tvGuideStep1">• افتح تطبيق <strong>SIYAQ TV</strong> على التلفاز ليظهر لك رمز <strong>QR</strong> ورقم الكود.</div>
+          <div data-i18n="tvGuideStep2">• من جوالك، ادخل قسم <strong>تلفاز (احترافي)</strong> واختر <strong>وضع الكاميرا</strong> أو <strong>وضع الشاشة</strong> ثم امسح الرمز.</div>
+          <div data-i18n="tvGuideStep3">• في وضع الشاشة، يقرأ التلفاز نصوص الشاشة تلقائياً ويرسلها للجوال لتظهر الترجمة فوق النص الأصلي فوراً.</div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- ========================================================================================= -->
   <!-- ================= 10. نافذة سياسة الخصوصية ================= -->
+  <!-- ========================================================================================= -->
   <div id="privacyModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-[var(--bg-page)] w-full max-w-md rounded-3xl p-5 space-y-4 text-right border border-[var(--border-col)] max-h-[85vh] overflow-y-auto no-scrollbar">
       <div class="flex items-center justify-between border-b border-[var(--border-col)] pb-3">
-        <h3 class="text-sm font-black">سياسة الخصوصية وإخلاء المسؤولية</h3>
+        <h3 data-i18n="privacyTitle" class="text-sm font-black">سياسة الخصوصية وإخلاء المسؤولية</h3>
         <button onclick="closeView('privacyModal')" class="py-1 px-2 text-cosmo font-black text-base">✕</button>
       </div>
 
       <div class="text-xs text-[var(--text-muted)] space-y-3 leading-relaxed">
         <div class="clean-surface p-3.5 rounded-2xl space-y-1">
-          <div class="font-black text-[var(--text-main)]">1. الخصوصية ومعالجة الكاميرا والشاشة محلياً</div>
-          <p>تتم معالجة إطارات الكاميرا وحزم الترجمة الأوفلاين داخل ذاكرة جهازك فقط، ولا يتم تسجيل أو تخزين أي صور على أي خادم خارجي.</p>
+          <div data-i18n="privSec1Title" class="font-black text-[var(--text-main)]">1. الخصوصية ومعالجة الكاميرا محلياً</div>
+          <p data-i18n="privSec1Desc">تتم معالجة إطارات الكاميرا داخل الذاكرة المؤقتة لجهازك فقط لقراءة الحوارات بسرعة عالية، ولا يتم تسجيل أو تخزين أي صور على أي خادم خارجي.</p>
         </div>
       </div>
 
       <button onclick="closeView('privacyModal')" class="w-full py-2.5 text-cosmo text-sm font-black">
-        <span>موافق</span>
+        <span data-i18n="agreeBtn">موافق</span>
       </button>
     </div>
   </div>
 
-  <!-- ================= 11. نافذة سلة الاشتراكات المقسمة حسب الفئات (Pro vs Ultra) ================= -->
+  <!-- ========================================================================================= -->
+  <!-- ================= 11. نافذة سلة الاشتراكات ================= -->
+  <!-- ========================================================================================= -->
   <div id="subModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-[var(--bg-page)] w-full max-w-sm rounded-3xl p-5 space-y-4 text-center relative shadow-2xl border border-[var(--border-col)] max-h-[90vh] overflow-y-auto no-scrollbar">
       <button onclick="closeView('subModal')" class="absolute top-4 left-4 py-1 px-2 text-cosmo font-black text-base">✕</button>
 
       <div class="mx-auto flex items-center justify-center text-2xl text-cosmo py-1">
-        <i class="fa-solid fa-crown"></i>
+        <i class="fa-solid fa-cart-shopping"></i>
       </div>
 
-      <div class="space-y-1">
-        <h3 class="text-lg font-black">اختر باقة SIYAQ المناسبة</h3>
-        <p class="text-[11px] text-[var(--text-muted)]">كل باقة تفعّل وضعها الخاص على التلفاز تلقائياً</p>
+      <div>
+        <h3 data-i18n="subModalTitle" class="text-lg font-black">فتح SIYAQ الاحترافي</h3>
       </div>
 
-      <div class="space-y-2.5 text-right">
-        <!-- باقة Pro: الكاميرا للتلفاز + موديلات الذكاء الاصطناعي -->
-        <div onclick="selectSubTier(this)" data-tier="pro" class="sub-tier-card p-3.5 rounded-2xl clean-surface border border-[var(--border-col)] space-y-1 cursor-pointer">
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-black">باقة Pro (تلفاز بالكاميرا + AI)</span>
-            <span class="text-sm font-black">29.00 SAR</span>
-          </div>
-          <p class="text-[10px] text-[var(--text-muted)]">ترجمة عبر كاميرا الجوال على التلفاز + جميع موديلات الذكاء الاصطناعي</p>
+      <div class="space-y-2 text-right">
+        <div onclick="selectSubTier(this)" class="sub-tier-card p-3.5 rounded-2xl clean-surface border border-[var(--border-col)] flex justify-between items-center cursor-pointer">
+          <span data-i18n="subWeekly" class="text-xs font-extrabold">اشتراك أسبوعي</span>
+          <span class="text-sm font-black">9.99 SAR</span>
         </div>
 
-        <!-- باقة Ultra الشهرية: التلفاز ألترا بدون كاميرا + كل مميزات Pro -->
-        <div onclick="selectSubTier(this)" data-tier="ultra" class="sub-tier-card p-3.5 rounded-2xl clean-surface border-2 border-[#F5A623] space-y-1 cursor-pointer">
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-black text-cosmo">باقة Ultra الشهرية (بدون كاميرا)</span>
-            <span class="text-sm font-black text-cosmo">49.00 SAR</span>
-          </div>
-          <p class="text-[10px] text-[var(--text-muted)]">تفتح وضع «التلفاز ألترا» قراءة الشاشة المباشرة بدون كاميرا + كافة مميزات Pro</p>
+        <div onclick="selectSubTier(this)" class="sub-tier-card p-3.5 rounded-2xl clean-surface border-2 border-[#F5A623] flex justify-between items-center cursor-pointer">
+          <span data-i18n="subMonthly" class="text-xs font-extrabold">اشتراك شهري</span>
+          <span class="text-sm font-black text-cosmo">29.00 SAR</span>
         </div>
 
-        <!-- باقة Ultra السنوية -->
-        <div onclick="selectSubTier(this)" data-tier="ultra" class="sub-tier-card p-3.5 rounded-2xl clean-surface border border-[var(--border-col)] space-y-1 cursor-pointer">
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-black">باقة Ultra السنوية (شاملة)</span>
-            <span class="text-sm font-black">299.00 SAR</span>
-          </div>
-          <p class="text-[10px] text-[var(--text-muted)]">وصول كامل لوضع «التلفاز ألترا» و«Pro» طوال العام</p>
+        <div onclick="selectSubTier(this)" class="sub-tier-card p-3.5 rounded-2xl clean-surface border border-[var(--border-col)] flex justify-between items-center cursor-pointer">
+          <span data-i18n="subYearly" class="text-xs font-extrabold">اشتراك سنوي</span>
+          <span class="text-sm font-black">199.00 SAR</span>
         </div>
       </div>
 
       <button onclick="activateProSubscription()" class="w-full py-3 text-cosmo font-black text-sm active:scale-95 transition">
-        <span id="subscribeCtaLabel">تفعيل باقة Ultra الآن</span>
+        <span data-i18n="subscribeNowBtn">اشترك الآن وافتح جميع المميزات</span>
       </button>
     </div>
   </div>
@@ -1070,6 +1156,7 @@
       const arRightRect = document.getElementById('arRightClipRect');
 
       if (!splashEl || !barEl) return;
+
       const startTime = performance.now();
 
       function step(now) {
@@ -1079,10 +1166,14 @@
 
         if (elapsed < 520) {
           barX = 29.5;
-          engLeftRect.setAttribute('x', '0'); engLeftRect.setAttribute('width', '35');
-          arLeftRect.setAttribute('x', '0'); arLeftRect.setAttribute('width', '0');
-          engRightRect.setAttribute('x', '35'); engRightRect.setAttribute('width', '65');
-          arRightRect.setAttribute('x', '44'); arRightRect.setAttribute('width', '0');
+          engLeftRect.setAttribute('x', '0');
+          engLeftRect.setAttribute('width', '35');
+          arLeftRect.setAttribute('x', '0');
+          arLeftRect.setAttribute('width', '0');
+          engRightRect.setAttribute('x', '35');
+          engRightRect.setAttribute('width', '65');
+          arRightRect.setAttribute('x', '44');
+          arRightRect.setAttribute('width', '0');
         } else if (elapsed < 1060) {
           const p = easeInOutCubic((elapsed - 520) / 540);
           barX = 29.5 - p * (29.5 - 8.5);
@@ -1091,18 +1182,23 @@
           engLeftRect.setAttribute('width', Math.max(0, splitLeft).toFixed(2));
           arLeftRect.setAttribute('x', Math.max(0, splitLeft).toFixed(2));
           arLeftRect.setAttribute('width', Math.max(0, 38.0 - splitLeft).toFixed(2));
-          engRightRect.setAttribute('x', '35'); engRightRect.setAttribute('width', '65');
-          arRightRect.setAttribute('x', '44'); arRightRect.setAttribute('width', '0');
+          engRightRect.setAttribute('x', '35');
+          engRightRect.setAttribute('width', '65');
+          arRightRect.setAttribute('x', '44');
+          arRightRect.setAttribute('width', '0');
         } else if (elapsed < 1920) {
           const p = easeInOutCubic((elapsed - 1060) / 860);
           barX = 8.5 + p * (91.5 - 8.5);
           const splitRight = barX + 2.3;
           engLeftRect.setAttribute('width', '0');
-          arLeftRect.setAttribute('x', '0'); arLeftRect.setAttribute('width', '38');
+          arLeftRect.setAttribute('x', '0');
+          arLeftRect.setAttribute('width', '38');
 
           if (splitRight <= 35.5) {
-            engRightRect.setAttribute('x', '35'); engRightRect.setAttribute('width', '65');
-            arRightRect.setAttribute('x', '44'); arRightRect.setAttribute('width', '0');
+            engRightRect.setAttribute('x', '35');
+            engRightRect.setAttribute('width', '65');
+            arRightRect.setAttribute('x', '44');
+            arRightRect.setAttribute('width', '0');
           } else {
             engRightRect.setAttribute('x', splitRight.toFixed(2));
             engRightRect.setAttribute('width', Math.max(0, 100 - splitRight).toFixed(2));
@@ -1112,39 +1208,51 @@
         } else if (elapsed < 2450) {
           const p = easeInOutCubic((elapsed - 1920) / 530);
           barX = 91.5 - p * (91.5 - 40.0);
-          engLeftRect.setAttribute('width', '0'); engRightRect.setAttribute('width', '0');
-          arLeftRect.setAttribute('x', '0'); arLeftRect.setAttribute('width', '38');
-          arRightRect.setAttribute('x', '44'); arRightRect.setAttribute('width', '56');
+          engLeftRect.setAttribute('width', '0');
+          engRightRect.setAttribute('width', '0');
+          arLeftRect.setAttribute('x', '0');
+          arLeftRect.setAttribute('width', '38');
+          arRightRect.setAttribute('x', '44');
+          arRightRect.setAttribute('width', '56');
         } else {
           barX = 40.0;
-          engLeftRect.setAttribute('width', '0'); engRightRect.setAttribute('width', '0');
-          arLeftRect.setAttribute('x', '0'); arLeftRect.setAttribute('width', '38');
-          arRightRect.setAttribute('x', '44'); arRightRect.setAttribute('width', '56');
+          engLeftRect.setAttribute('width', '0');
+          engRightRect.setAttribute('width', '0');
+          arLeftRect.setAttribute('x', '0');
+          arLeftRect.setAttribute('width', '38');
+          arRightRect.setAttribute('x', '44');
+          arRightRect.setAttribute('width', '56');
         }
 
         barEl.setAttribute('x', barX.toFixed(2));
+
         if (elapsed < 3100) {
           requestAnimationFrame(step);
         } else {
           splashEl.classList.add('splash-fade-out');
-          setTimeout(() => { if (splashEl && splashEl.parentNode) splashEl.remove(); }, 480);
+          setTimeout(() => {
+            if (splashEl && splashEl.parentNode) splashEl.remove();
+          }, 480);
         }
       }
+
       requestAnimationFrame(step);
     }
 
     function handleSplashClick(splashEl) {
       if (!splashEl) return;
       splashEl.classList.add('splash-fade-out');
-      setTimeout(() => { if (splashEl && splashEl.parentNode) splashEl.remove(); }, 300);
+      setTimeout(() => {
+        if (splashEl && splashEl.parentNode) splashEl.remove();
+      }, 300);
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       runSplashScannerAnimation();
+      loadSavedEngineAndKeys();
       applySubtitleStyles();
-      refreshOfflineLibraryStatusUI();
       updateProModelsDropdownUI();
-      refreshTierBadgeUI();
+      updateOfflineModelStatusUI();
     });
 
     // ================= 1. نظام اللغات =================
@@ -1153,9 +1261,11 @@
       ar: {
         modePhone: 'الهاتف (مجاني)',
         modeTv: 'تلفاز (احترافي)',
-        modeTvUltra: 'التلفاز ألترا',
-        startFreeTrialBtn: 'بدء التجربة المجانية (فئة Pro)',
-        trialRemainingMsg: 'وقت تجربة Pro المتبقي:',
+        tvSubCamera: 'وضع الكاميرا',
+        tvSubScreen: 'وضع الشاشة',
+        startFreeTrialBtn: 'بدء التجربة المجانية',
+        trialRemainingMsg: 'وقت التجربة المتبقي لوضع التلفاز:',
+        pairTvTitle: 'اقتران التلفاز',
         scanQrBtn: 'مسح الرمز من شاشة التلفاز',
         tvDownloadHubBtn: 'طريقة تحميل تطبيق سياق للتلفزيون',
         startCamBtn: 'تشغيل الكاميرا لبدء الترجمة',
@@ -1185,15 +1295,58 @@
         saveSettingsBtn: 'حفظ وتطبيق الإعدادات',
         applyAndSaveBtn: 'تطبيق وحفظ',
         subAppearanceTitle: 'تخصيص مظهر الترجمة',
+        livePreviewSample: 'معاينة حية للترجمة',
+        alignTop: 'الأعلى',
+        alignCenter: 'المنتصف',
+        alignBottom: 'الأسفل',
+        largeTextToggle: 'نص كبير وواضح',
+        textSectionTitle: 'النص',
+        fontLabel: 'الخط',
+        boldLabel: 'عريض وواضح',
+        sizeLabel: 'الحجم',
+        textColorLabel: 'لون النص',
+        textOpacityLabel: 'شفافية النص',
+        bgSectionTitle: 'خلفية الشريط',
+        bgColorLabel: 'لون الخلفية',
+        bgOpacityLabel: 'درجة التعتيم',
+        bgWidthLabel: 'أقصى عرض للشريط',
+        bgHeightLabel: 'حواف الخلفية',
+        tvPosSectionTitle: 'موقع الترجمة على الشاشة',
+        posXLabel: 'الموقع الأفقي',
+        posYLabel: 'الموقع العمودي',
+        resetDefaultsBtn: 'استعادة الافتراضي',
+        closeBtn: 'إغلاق',
+        tvGuideTitle: 'طريقة الاقتران وتحميل تطبيق التلفاز',
         ocrSmartOpt: 'قارئ الحوارات الذكي',
-        ocrStandardOpt: 'القارئ القياسي'
+        ocrStandardOpt: 'القارئ القياسي',
+        offlinePackTitle: 'المحرك القابل للتنزيل (أوفلاين)',
+        offlinePackDesc: 'حمّل نموذج الترجمة العصبي على جهازك لترجمة فورية بأجزاء من الثانية بدون إنترنت.',
+        downloadEngineBtn: 'تنزيل المحرك الآن',
+        deleteEngineBtn: 'حذف',
+        engOfflineOpt: 'المحرك المحلي المحمّل (أوفلاين)',
+        engGoogleOpt: 'Google Translate (مجاني)',
+        engMicrosoftOpt: 'Microsoft Translator (مجاني)',
+        engDeepLOpt: 'DeepL Context (مجاني بمفتاحك)',
+        screenModeActiveTitle: 'وضع الشاشة الكاملة نشط',
+        screenModeActiveDesc: 'التلفاز يمسح الشاشة بالكامل ويرسل النصوص وأماكنها للجوال للترجمة الفورية وعرضها فوق النص الأصلي',
+        statBlocksLbl: 'نصوص الشاشة',
+        statSpeedLbl: 'سرعة الترجمة',
+        statEngineLbl: 'المحرك النشط',
+        waitingTvScreenBlocks: 'في انتظار وصول نصوص الشاشة من التلفاز...',
+        pauseScreenReadBtn: 'إيقاف القراءة',
+        resumeScreenReadBtn: 'استئناف القراءة',
+        oledSaveBtn: 'وضع الطاولة (شاشة سوداء)',
+        exitOledSaveBtn: 'إظهار شاشة التحكم',
+        testOverlayBtn: 'تجربة فورية'
       },
       en: {
         modePhone: 'Phone (Free)',
         modeTv: 'TV (Pro)',
-        modeTvUltra: 'TV Ultra',
-        startFreeTrialBtn: 'Start Free Trial (Pro Tier)',
-        trialRemainingMsg: 'Pro Trial Remaining:',
+        tvSubCamera: 'Camera Mode',
+        tvSubScreen: 'Screen Mode',
+        startFreeTrialBtn: 'Start Free Trial',
+        trialRemainingMsg: 'TV Mode Trial Remaining:',
+        pairTvTitle: 'TV Pairing',
         scanQrBtn: 'Scan QR Code from TV',
         tvDownloadHubBtn: 'How to Download SIYAQ TV App',
         startCamBtn: 'Start Camera to Translate',
@@ -1223,8 +1376,49 @@
         saveSettingsBtn: 'Save & Apply Settings',
         applyAndSaveBtn: 'Apply & Save',
         subAppearanceTitle: 'Subtitle Appearance',
+        livePreviewSample: 'Live Subtitle Preview',
+        alignTop: 'Top',
+        alignCenter: 'Center',
+        alignBottom: 'Bottom',
+        largeTextToggle: 'Large Clear Text',
+        textSectionTitle: 'Text',
+        fontLabel: 'Font',
+        boldLabel: 'Bold & Clear',
+        sizeLabel: 'Size',
+        textColorLabel: 'Text Color',
+        textOpacityLabel: 'Text Opacity',
+        bgSectionTitle: 'Bar Background',
+        bgColorLabel: 'Background Color',
+        bgOpacityLabel: 'Background Opacity',
+        bgWidthLabel: 'Max Bar Width',
+        bgHeightLabel: 'Bar Padding',
+        tvPosSectionTitle: 'Screen Position',
+        posXLabel: 'Horizontal Position',
+        posYLabel: 'Vertical Position',
+        resetDefaultsBtn: 'Reset Defaults',
+        closeBtn: 'Close',
+        tvGuideTitle: 'How to Pair & Download TV App',
         ocrSmartOpt: 'Smart Dialogue Reader',
-        ocrStandardOpt: 'Standard Reader'
+        ocrStandardOpt: 'Standard Reader',
+        offlinePackTitle: 'Downloadable Offline Engine',
+        offlinePackDesc: 'Download the neural translation model to your device for sub-second offline translation.',
+        downloadEngineBtn: 'Download Engine Now',
+        deleteEngineBtn: 'Delete',
+        engOfflineOpt: 'Downloaded Local Engine (Offline)',
+        engGoogleOpt: 'Google Translate (Free)',
+        engMicrosoftOpt: 'Microsoft Translator (Free)',
+        engDeepLOpt: 'DeepL Context (Free with Your Key)',
+        screenModeActiveTitle: 'Full Screen Mode Active',
+        screenModeActiveDesc: 'TV scans the entire screen and sends all text positions to your phone for instant overlay translation.',
+        statBlocksLbl: 'Screen Texts',
+        statSpeedLbl: 'Latency',
+        statEngineLbl: 'Active Engine',
+        waitingTvScreenBlocks: 'Waiting for screen text blocks from TV...',
+        pauseScreenReadBtn: 'Pause Reading',
+        resumeScreenReadBtn: 'Resume Reading',
+        oledSaveBtn: 'Table Mode (OLED Black)',
+        exitOledSaveBtn: 'Show Controls',
+        testOverlayBtn: 'Instant Test'
       }
     };
 
@@ -1237,21 +1431,18 @@
         const key = el.getAttribute('data-i18n');
         if (dict[key]) el.textContent = dict[key];
       });
+      updateTvSubModeUI();
       syncAllScanButtonsUI();
     }
 
-    // ================= 2. المتغيرات العامة ونظام الفئات الصارم =================
-    let currentTabMode = 'phone'; // 'phone' | 'tv' | 'tv_ultra'
+    // ================= 2. المتغيرات العامة وحالة الطاقة =================
+    let currentTabMode = 'phone';
+    let tvSubMode = 'camera'; // 'camera' | 'screen'
+    let isScreenModePaused = false;
     let isTvPaired = false;
-    let isUltraStreamActive = true;
-
-    // فئة الاشتراك الحالية للمستخدم: 'free' | 'pro' | 'ultra'
-    let userSubscriptionTier = 'free';
-    let selectedModalTier = 'ultra';
-    let activeSessionToken = '';
-
+    let isProUser = false;
     let trialActive = false;
-    let trialSecondsLeft = 7200;
+    let trialSecondsLeft = 7200; // مدة التجربة المجانية: ساعتان (120 دقيقة)
     let trialInterval = null;
 
     let pairedRoomCode = '84920174';
@@ -1267,8 +1458,21 @@
     let activeReaderMode = 'smart_subtitle';
     let activeTranslator = 'google_gtx';
 
+    // مفاتيح API الخاصة بالمستخدم (BYOK) - على حساب المستخدم الشخصي
+    let userApiKeys = {
+      deepl_free: '',
+      pro_gemini_2_5_flash: '',
+      pro_gpt_4o_mini: '',
+      pro_claude_3_5_haiku: '',
+      pro_deepseek_v3: ''
+    };
+
+    // المحرك القابل للتنزيل (Transformers.js Xenova/opus-mt-en-ar)
+    let offlineTranslatorPipeline = null;
+    let isOfflineModelDownloading = false;
+    let isOfflineModelDownloaded = localStorage.getItem('siyaq_offline_engine_ready') === '1';
+
     let roiState = { left: 0.08, top: 0.55, width: 0.84, height: 0.28 };
-    let ultraTvRoi = { top: 0.72, height: 0.20 };
     let lastGrayscaleGrid = null;
     let lastValidEngSentence = '';
     let lastValidArSentence = '';
@@ -1280,11 +1484,12 @@
     let forceInitialScanCount = 0;
     const SUBTITLE_HOLD_AFTER_END_MS = 650;
 
+    // مخازن ذاكرة مُعادة الاستخدام (Zero-GC Thermal Protection) بدقة 860px الكاملة
     const _reusableLumBuf = new Uint8Array(860 * 240);
     const _reusableSubHist = new Uint32Array(256);
     const _reusableGateGrid = new Uint8Array(560);
     const translationMemoryCache = new Map();
-    const MAX_CACHE_ENTRIES = 350;
+    const MAX_CACHE_ENTRIES = 500;
 
     function setBoundedCache(key, value) {
       if (translationMemoryCache.size >= MAX_CACHE_ENTRIES) {
@@ -1295,18 +1500,61 @@
     }
 
     const INSTANT_GAMING_SHORT_PHRASES = {
-      'yes': 'نعم', 'no': 'لا', 'ok': 'حسناً', 'okay': 'حسناً',
-      'wait': 'انتظر!', 'stop': 'توقف!', 'run': 'اهرب!', 'go': 'انطلق!',
-      'help': 'النجدة!', 'help me': 'ساعدني!', 'watch out': 'انتبه!', 'look out': 'احذر!',
-      'come on': 'هيا!', 'lets go': 'هيا بنا!', 'let us go': 'هيا بنا!',
-      'what': 'ماذا؟', 'why': 'لماذا؟', 'who': 'من؟', 'where': 'أين؟', 'how': 'كيف؟',
-      'thank you': 'شكراً لك', 'thanks': 'شكراً', 'sorry': 'آسف', 'im sorry': 'أنا آسف',
-      'behind you': 'خلفك!', 'over here': 'هنا!', 'over there': 'هناك!',
-      'follow me': 'اتبعني', 'stay back': 'ابقَ في الخلف!', 'get down': 'انخفض!',
-      'hold on': 'تمسك!', 'shut up': 'اصمت!', 'never': 'أبداً', 'maybe': 'ربما',
-      'of course': 'بالطبع', 'are you okay': 'هل أنت بخير؟', 'are you alright': 'هل أنت بخير؟',
-      'i dont know': 'لا أعرف', 'move': 'تحرك!', 'fire': 'أطلق النار!',
-      'reload': 'أعد التلقيم!', 'take cover': 'احتمِ!'
+      'yes': 'نعم',
+      'no': 'لا',
+      'ok': 'حسناً',
+      'okay': 'حسناً',
+      'wait': 'انتظر!',
+      'stop': 'توقف!',
+      'run': 'اهرب!',
+      'go': 'انطلق!',
+      'help': 'النجدة!',
+      'help me': 'ساعدني!',
+      'watch out': 'انتبه!',
+      'look out': 'احذر!',
+      'come on': 'هيا!',
+      'lets go': 'هيا بنا!',
+      'let us go': 'هيا بنا!',
+      'what': 'ماذا؟',
+      'why': 'لماذا؟',
+      'who': 'من؟',
+      'where': 'أين؟',
+      'how': 'كيف؟',
+      'thank you': 'شكراً لك',
+      'thanks': 'شكراً',
+      'sorry': 'آسف',
+      'im sorry': 'أنا آسف',
+      'behind you': 'خلفك!',
+      'over here': 'هنا!',
+      'over there': 'هناك!',
+      'follow me': 'اتبعني',
+      'stay back': 'ابقَ في الخلف!',
+      'get down': 'انخفض!',
+      'hold on': 'تمسك!',
+      'shut up': 'اصمت!',
+      'never': 'أبداً',
+      'maybe': 'ربما',
+      'of course': 'بالطبع',
+      'are you okay': 'هل أنت بخير؟',
+      'are you alright': 'هل أنت بخير؟',
+      'i dont know': 'لا أعرف',
+      'move': 'تحرك!',
+      'fire': 'أطلق النار!',
+      'reload': 'أعد التلقيم!',
+      'take cover': 'احتمِ!',
+      'new game': 'لعبة جديدة',
+      'continue': 'متابعة',
+      'load game': 'تحميل لعبة',
+      'settings': 'الإعدادات',
+      'options': 'الخيارات',
+      'quit': 'خروج',
+      'exit': 'خروج',
+      'inventory': 'المخزون',
+      'map': 'الخريطة',
+      'skills': 'المهارات',
+      'quests': 'المهام',
+      'resume': 'استئناف',
+      'save game': 'حفظ اللعبة'
     };
 
     const ALLOWED_SINGLE_WORDS = new Set([
@@ -1317,7 +1565,8 @@
       'warning','danger','caution','alert','target','locked','complete','failed','victory','defeat',
       'please','listen','look','watch','careful','quiet','silence','freeze','drop','shoot','kill',
       'die','live','stay','leave','come','here','there','now','later','soon','always','nothing',
-      'everything','someone','anyone','nobody','everyone','brother','sister','father','mother','friend'
+      'everything','someone','anyone','nobody','everyone','brother','sister','father','mother','friend',
+      'inventory','map','skills','quests','settings','options','continue','resume','quit','play'
     ]);
 
     let subStyleConfig = {
@@ -1336,127 +1585,10 @@
     };
     let activeColorTarget = 'text';
 
-    // ================= 2.5 مكتبة الترجمة الأوفلاين الحقيقية =================
-    let offlineTranslatorPipeline = null;
-    let isDownloadingOfflineModel = false;
-
-    function isOfflineModelDownloaded() {
-      return localStorage.getItem('siyaq_offline_model_ready') === '1';
-    }
-
-    function refreshOfflineLibraryStatusUI() {
-      const ready = isOfflineModelDownloaded();
-      const statusTxt = document.getElementById('offlineModelStatusText');
-      const badgeIcon = document.getElementById('offlineModelBadgeIcon');
-      const dlBtnLbl = document.getElementById('btnDownloadOfflineLabel');
-      const delBtn = document.getElementById('btnDeleteOfflinePack');
-      const rowTag = document.getElementById('offlineRowTag');
-
-      if (ready) {
-        if (statusTxt) statusTxt.textContent = 'محمّلة ومحفوظة في ذاكرة جهازك • تعمل أوفلاين 100% بدون نت';
-        if (badgeIcon) badgeIcon.className = 'fa-solid fa-circle-check text-emerald-400 text-base';
-        if (dlBtnLbl) dlBtnLbl.textContent = offlineTranslatorPipeline ? 'المكتبة جاهزة ونشطة ✓' : 'تفعيل/تحديث المكتبة المحلية';
-        if (delBtn) delBtn.classList.remove('hidden');
-        if (rowTag) {
-          rowTag.textContent = 'أوفلاين جاهز';
-          rowTag.className = 'text-[10px] font-black text-emerald-400';
-        }
-      } else {
-        if (statusTxt) statusTxt.textContent = 'تُحفظ في ذاكرة جهازك للترجمة الفورية بدون نت (~55 MB)';
-        if (badgeIcon) badgeIcon.className = 'fa-solid fa-cloud-arrow-down text-cosmo text-base';
-        if (dlBtnLbl) dlBtnLbl.textContent = 'تنزيل المكتبة وحفظها';
-        if (delBtn) delBtn.classList.add('hidden');
-        if (rowTag) {
-          rowTag.textContent = 'تتطلب تنزيل';
-          rowTag.className = 'text-[10px] font-black text-[var(--text-muted)]';
-        }
-      }
-    }
-
-    async function ensureOfflinePipelineLoaded(onProgressCb) {
-      if (offlineTranslatorPipeline) return offlineTranslatorPipeline;
-      const { pipeline, env } = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.4.0');
-      env.allowLocalModels = false;
-      env.useBrowserCache = true;
-
-      offlineTranslatorPipeline = await pipeline('translation', 'Xenova/opus-mt-en-ar', {
-        dtype: 'q8',
-        progress_callback: (info) => {
-          if (typeof onProgressCb === 'function') onProgressCb(info);
-        }
-      });
-      localStorage.setItem('siyaq_offline_model_ready', '1');
-      refreshOfflineLibraryStatusUI();
-      return offlineTranslatorPipeline;
-    }
-
-    async function downloadRealOfflineTranslationLibrary() {
-      if (isDownloadingOfflineModel) return;
-      isDownloadingOfflineModel = true;
-
-      const progWrap = document.getElementById('offlineDownloadProgressWrap');
-      const progBar = document.getElementById('offlineDownloadProgressBar');
-      const fileLbl = document.getElementById('offlineDownloadFileLbl');
-      const pctLbl = document.getElementById('offlineDownloadPctLbl');
-      const dlBtnLbl = document.getElementById('btnDownloadOfflineLabel');
-
-      progWrap.classList.remove('hidden');
-      dlBtnLbl.textContent = 'جاري التنزيل...';
-
-      try {
-        await ensureOfflinePipelineLoaded((info) => {
-          if (info && info.status === 'progress' && typeof info.progress === 'number') {
-            const pct = Math.min(100, Math.round(info.progress));
-            progBar.style.width = pct + '%';
-            pctLbl.textContent = pct + '%';
-            fileLbl.textContent = info.file ? `تنزيل: ${info.file}` : 'جاري تنزيل أوزان الترجمة...';
-          }
-        });
-        progBar.style.width = '100%';
-        pctLbl.textContent = '100%';
-        fileLbl.textContent = 'تم الحفظ في ذاكرة الجهاز بنجاح ✓';
-        selectCustomTranslatorEngine('offline_neural');
-        notify('تم تنزيل مكتبة الترجمة الأوفلاين وحفظها في جهازك ✓');
-      } catch (err) {
-        dlBtnLbl.textContent = 'إعادة محاولة التنزيل';
-        notify('تعذر التنزيل، تأكد من اتصال الإنترنت أثناء التحميل الأول');
-      } finally {
-        isDownloadingOfflineModel = false;
-        setTimeout(() => progWrap.classList.add('hidden'), 1800);
-      }
-    }
-
-    async function deleteOfflineTranslationLibrary() {
-      try {
-        if ('caches' in window) {
-          const keys = await caches.keys();
-          for (const k of keys) {
-            if (k.includes('transformers')) await caches.delete(k);
-          }
-        }
-      } catch (e) {}
-      offlineTranslatorPipeline = null;
-      localStorage.removeItem('siyaq_offline_model_ready');
-      if (activeTranslator === 'offline_neural') {
-        activeTranslator = 'google_gtx';
-        document.getElementById('translatorEngineSelect').value = 'google_gtx';
-      }
-      refreshOfflineLibraryStatusUI();
-      updateProModelsDropdownUI();
-      notify('تم حذف حزمة الترجمة الأوفلاين ✓');
-    }
-
-    if (isOfflineModelDownloaded()) {
-      setTimeout(() => { ensureOfflinePipelineLoaded().catch(() => {}); }, 1500);
-    }
-
-    // ================= 3. المزامنة الفورية مع التلفاز عبر MQTT + عزل الأوضاع الصارم =================
+    // ================= 3. المزامنة الفورية مع التلفاز عبر MQTT (وضع الكاميرا + وضع الشاشة) =================
     let mqttClient = null;
-
-    function generateSessionToken(tier, code) {
-      const raw = `SIYAQ|${tier}|${code}|${Date.now()}`;
-      return btoa(raw);
-    }
+    let lastScreenFrameProcessed = -1;
+    let isScreenBatchTranslating = false;
 
     function initCrossDeviceSync() {
       try {
@@ -1468,7 +1600,7 @@
           mqttClient.on('connect', () => {
             if (isTvPaired && pairedRoomCode) {
               mqttClient.subscribe(`siyaq/tv/sec/${pairedRoomCode}`);
-              mqttClient.subscribe(`siyaq/tv/ultra/${pairedRoomCode}`);
+              mqttClient.subscribe(`siyaq/tv/ocr/${pairedRoomCode}`);
             }
           });
           mqttClient.on('message', (topic, payload) => {
@@ -1476,23 +1608,8 @@
               const data = JSON.parse(payload.toString());
               if (data.type === 'UNPAIRED' && isTvPaired) {
                 handleRemoteTvUnpair();
-                return;
-              }
-              if (data.type === 'ULTRA_DENIED') {
-                notify('تطبيق التلفاز رفض وضع ألترا: يتطلب اشتراك Ultra');
-                unpairTvDevice();
-                openSubModalForTier('ultra');
-                return;
-              }
-              // قبول النص من التلفاز حصراً إذا كان الجوال في وضع tv_ultra ومشترك في ultra
-              if (
-                data.type === 'TV_OCR_TEXT' &&
-                isTvPaired &&
-                currentTabMode === 'tv_ultra' &&
-                userSubscriptionTier === 'ultra' &&
-                isUltraStreamActive
-              ) {
-                handleIncomingUltraTvOcrText(data.text || '');
+              } else if (data.type === 'TV_SCREEN_BLOCKS' && isTvPaired && tvSubMode === 'screen') {
+                handleIncomingTvScreenBlocks(data);
               }
             } catch (e) {}
           });
@@ -1502,7 +1619,7 @@
     initCrossDeviceSync();
 
     function sendCrossDeviceEvent(dataObj) {
-      if ((dataObj.type === 'SUB_UPDATE' || dataObj.type === 'SUB_CLEAR') && !isTvPaired) {
+      if ((dataObj.type === 'SUB_UPDATE' || dataObj.type === 'SUB_CLEAR' || dataObj.type === 'SCREEN_OVERLAY_UPDATE' || dataObj.type === 'SCREEN_OVERLAY_CLEAR') && !isTvPaired) {
         return;
       }
       if (mqttClient && mqttClient.connected && pairedRoomCode) {
@@ -1510,106 +1627,164 @@
       }
     }
 
-    async function handleIncomingUltraTvOcrText(rawEngText) {
-      if (currentTabMode !== 'tv_ultra' || userSubscriptionTier !== 'ultra') return;
+    // معالجة نصوص الشاشة الكاملة القادمة من التلفاز وإعادتها فوق أماكنها في أجزاء من الثانية
+    async function handleIncomingTvScreenBlocks(packet) {
+      if (isScreenModePaused) return;
+      const blocks = Array.isArray(packet.blocks) ? packet.blocks : [];
+      const frameId = packet.frameId || Date.now();
 
-      const cleanedEng = extractPureSubtitleSentence(rawEngText) || rawEngText.trim();
-      const rawOutEl = document.getElementById('ultraRawEngOut');
-      const arOutEl = document.getElementById('ultraArabicOut');
-      const latTag = document.getElementById('ultraLatencyTag');
-
-      if (!cleanedEng) {
-        if (rawOutEl) rawOutEl.textContent = 'Waiting for TV screen text...';
-        if (arOutEl) arOutEl.textContent = 'في انتظار حوارات اللعبة من التلفاز...';
-        sendCrossDeviceEvent({ type: 'SUB_CLEAR', mode: 'TV_ULTRA' });
+      if (blocks.length === 0) {
+        sendCrossDeviceEvent({ type: 'SCREEN_OVERLAY_CLEAR', frameId });
+        updateScreenModeStats(0, 0, []);
         return;
       }
 
-      if (rawOutEl) rawOutEl.textContent = cleanedEng;
-      if (lastValidArSentence && isSameSubtitleLocked(cleanedEng, lastValidEngSentence)) return;
-
+      if (isScreenBatchTranslating && frameId <= lastScreenFrameProcessed) return;
+      lastScreenFrameProcessed = frameId;
       const t0 = performance.now();
-      lastValidEngSentence = cleanedEng;
 
-      const normPhrase = cleanedEng.toLowerCase().replace(/[^a-z\s]/g, '').replace(/\s+/g, ' ').trim();
-      if (INSTANT_GAMING_SHORT_PHRASES[normPhrase]) {
-        const fastAr = INSTANT_GAMING_SHORT_PHRASES[normPhrase];
-        lastValidArSentence = fastAr;
-        if (arOutEl) arOutEl.textContent = fastAr;
-        if (latTag) latTag.textContent = '0 ms';
-        sendCrossDeviceEvent({ type: 'SUB_UPDATE', mode: 'TV_ULTRA', text: fastAr, style: subStyleConfig });
+      const resolvedOverlays = [];
+      const uncachedBlocks = [];
+
+      for (let i = 0; i < blocks.length; i++) {
+        const b = blocks[i];
+        const rawTxt = (b.text || '').replace(/\s+/g, ' ').trim();
+        if (!rawTxt || rawTxt.length < 2) continue;
+
+        const normKey = rawTxt.toLowerCase().replace(/[^a-z\s]/g, '').replace(/\s+/g, ' ').trim();
+        const cacheKey = `${activeTranslator}::${rawTxt.toLowerCase()}`;
+
+        if (INSTANT_GAMING_SHORT_PHRASES[normKey]) {
+          resolvedOverlays.push({
+            id: b.id || String(i),
+            ar: INSTANT_GAMING_SHORT_PHRASES[normKey],
+            x: b.x, y: b.y, w: b.w, h: b.h
+          });
+        } else if (translationMemoryCache.has(cacheKey)) {
+          resolvedOverlays.push({
+            id: b.id || String(i),
+            ar: translationMemoryCache.get(cacheKey),
+            x: b.x, y: b.y, w: b.w, h: b.h
+          });
+        } else {
+          uncachedBlocks.push({ ...b, cleanText: rawTxt, cacheKey });
+        }
+      }
+
+      // إرسال الكتل المحفوظة في الكاش فوراً خلال أجزاء من الثانية (0ms)
+      if (resolvedOverlays.length > 0 && uncachedBlocks.length === 0) {
+        const elapsedMs = Math.max(1, Math.round(performance.now() - t0));
+        sendCrossDeviceEvent({
+          type: 'SCREEN_OVERLAY_UPDATE',
+          frameId,
+          style: subStyleConfig,
+          overlays: resolvedOverlays
+        });
+        updateScreenModeStats(resolvedOverlays.length, elapsedMs, resolvedOverlays);
         return;
       }
 
-      const currentSeq = ++translationSeqId;
-      const arTranslation = await translateFullSentenceInstant(cleanedEng);
-      if (arTranslation && currentSeq >= translationSeqId - 1 && currentTabMode === 'tv_ultra') {
-        const elapsedMs = Math.round(performance.now() - t0);
-        lastValidArSentence = arTranslation;
-        if (arOutEl) arOutEl.textContent = arTranslation;
-        if (latTag) latTag.textContent = `${elapsedMs} ms`;
-        sendCrossDeviceEvent({ type: 'SUB_UPDATE', mode: 'TV_ULTRA', text: arTranslation, style: subStyleConfig });
+      if (uncachedBlocks.length > 0) {
+        isScreenBatchTranslating = true;
+        try {
+          // تجميع كل نصوص الشاشة الجديدة في طلب واحد متوازي لتقليل زمن الاستجابة لأقصى حد
+          const translatedList = await translateBatchBlocksInstant(uncachedBlocks.map(u => u.cleanText));
+          for (let j = 0; j < uncachedBlocks.length; j++) {
+            const item = uncachedBlocks[j];
+            const arTxt = translatedList[j] || '';
+            if (arTxt) {
+              setBoundedCache(item.cacheKey, arTxt);
+              resolvedOverlays.push({
+                id: item.id || `u_${j}`,
+                ar: arTxt,
+                x: item.x, y: item.y, w: item.w, h: item.h
+              });
+            }
+          }
+          const elapsedMs = Math.max(1, Math.round(performance.now() - t0));
+          sendCrossDeviceEvent({
+            type: 'SCREEN_OVERLAY_UPDATE',
+            frameId,
+            style: subStyleConfig,
+            overlays: resolvedOverlays
+          });
+          updateScreenModeStats(resolvedOverlays.length, elapsedMs, resolvedOverlays);
+        } finally {
+          isScreenBatchTranslating = false;
+        }
       }
     }
 
-    function setUltraTvCaptureZone(zone) {
-      ['ultraZoneBottom', 'ultraZoneCenter', 'ultraZoneTop'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.className = 'zone-choice-btn py-2 rounded-xl border border-[var(--border-col)] text-[var(--text-muted)]';
-      });
-      const lbl = document.getElementById('ultraRoiLabel');
-      if (zone === 'top') {
-        document.getElementById('ultraZoneTop').className = 'zone-choice-btn py-2 rounded-xl border border-[#F5A623] text-cosmo';
-        ultraTvRoi = { top: 0.08, height: 0.22 };
-        if (lbl) lbl.textContent = 'أعلى الشاشة (8% - 30%)';
-      } else if (zone === 'center') {
-        document.getElementById('ultraZoneCenter').className = 'zone-choice-btn py-2 rounded-xl border border-[#F5A623] text-cosmo';
-        ultraTvRoi = { top: 0.40, height: 0.22 };
-        if (lbl) lbl.textContent = 'منتصف الشاشة (40% - 62%)';
-      } else {
-        document.getElementById('ultraZoneBottom').className = 'zone-choice-btn py-2 rounded-xl border border-[#F5A623] text-cosmo';
-        ultraTvRoi = { top: 0.72, height: 0.20 };
-        if (lbl) lbl.textContent = 'أسفل الشاشة (72% - 92%)';
+    function updateScreenModeStats(count, latencyMs, overlays) {
+      const cntEl = document.getElementById('statBlocksCount');
+      const latEl = document.getElementById('statLatencyMs');
+      const oledEl = document.getElementById('oledLiveCounter');
+      const previewEl = document.getElementById('screenLastBlocksPreview');
+
+      if (cntEl) cntEl.textContent = String(count);
+      if (latEl) latEl.textContent = count > 0 ? `${latencyMs} ms` : '-- ms';
+      if (oledEl) oledEl.textContent = currentAppLang === 'ar'
+        ? `تمت ترجمة ${count} نصوص على التلفاز (${latencyMs} ms)`
+        : `Translated ${count} screen texts on TV (${latencyMs} ms)`;
+
+      if (previewEl && overlays && overlays.length > 0) {
+        previewEl.innerHTML = overlays.slice(0, 5).map(ov =>
+          `<div class="text-xs font-extrabold text-[var(--text-main)] border-b border-slate-800/70 pb-1 last:border-none">${escapeHtmlSafe(ov.ar)}</div>`
+        ).join('');
       }
-      sendCrossDeviceEvent({
-        type: 'ULTRA_CONTROL',
-        mode: 'TV_ULTRA',
-        tier: userSubscriptionTier,
-        sessionToken: activeSessionToken,
-        action: 'SET_ROI',
-        roi: ultraTvRoi
-      });
-      notify('تم تحديث منطقة القراءة على التلفاز ✓');
     }
 
-    function toggleUltraTvStream() {
-      isUltraStreamActive = !isUltraStreamActive;
-      const icon = document.getElementById('ultraStreamIcon');
-      const lbl = document.getElementById('ultraStreamLabel');
-      const sub = document.getElementById('ultraConnectionSub');
-      if (isUltraStreamActive) {
-        if (icon) icon.className = 'fa-solid fa-pause';
-        if (lbl) lbl.textContent = 'إيقاف مؤقت';
-        if (sub) sub.textContent = 'التلفاز يقرأ الشاشة ويرسل النص • الكاميرا مغلقة تماماً';
-        sendCrossDeviceEvent({
-          type: 'ULTRA_CONTROL',
-          mode: 'TV_ULTRA',
-          tier: userSubscriptionTier,
-          sessionToken: activeSessionToken,
-          action: 'START',
-          roi: ultraTvRoi
-        });
-      } else {
+    function escapeHtmlSafe(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function toggleScreenModePause() {
+      isScreenModePaused = !isScreenModePaused;
+      const icon = document.getElementById('screenPauseIcon');
+      const lbl = document.getElementById('screenPauseLabel');
+      const dot = document.getElementById('screenModeLiveDot');
+      const dict = UI_TRANSLATIONS[currentAppLang];
+
+      if (isScreenModePaused) {
         if (icon) icon.className = 'fa-solid fa-play';
-        if (lbl) lbl.textContent = 'استئناف القراءة';
-        if (sub) sub.textContent = 'القراءة متوقفة مؤقتاً';
-        sendCrossDeviceEvent({ type: 'ULTRA_CONTROL', mode: 'TV_ULTRA', action: 'STOP' });
-        sendCrossDeviceEvent({ type: 'SUB_CLEAR', mode: 'TV_ULTRA' });
+        if (lbl) lbl.textContent = dict.resumeScreenReadBtn;
+        if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-amber-400';
+        sendCrossDeviceEvent({ type: 'SCREEN_CONTROL', action: 'PAUSE' });
+      } else {
+        if (icon) icon.className = 'fa-solid fa-pause';
+        if (lbl) lbl.textContent = dict.pauseScreenReadBtn;
+        if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse';
+        sendCrossDeviceEvent({ type: 'SCREEN_CONTROL', action: 'RESUME' });
       }
+    }
+
+    function toggleOledPowerSave(enable) {
+      const oledEl = document.getElementById('oledPowerSaveScreen');
+      if (!oledEl) return;
+      if (enable) {
+        oledEl.classList.remove('hidden');
+      } else {
+        oledEl.classList.add('hidden');
+      }
+    }
+
+    async function sendTestScreenOverlaySample() {
+      const samplePacket = {
+        frameId: Date.now(),
+        blocks: [
+          { id: 't1', text: 'Press X to Interact', x: 0.38, y: 0.78, w: 0.24, h: 0.05 },
+          { id: 't2', text: 'Inventory', x: 0.08, y: 0.08, w: 0.14, h: 0.045 },
+          { id: 't3', text: 'Main Quest: Find the Relic', x: 0.70, y: 0.14, w: 0.24, h: 0.05 }
+        ]
+      };
+      await handleIncomingTvScreenBlocks(samplePacket);
+      notify(currentAppLang === 'ar' ? 'تم إرسال ترجمة تجريبية فوق أماكن النصوص ✓' : 'Test screen overlays sent ✓');
     }
 
     function warmupTranslationConnections() {
-      if (activeTranslator === 'offline_neural') return;
       try {
         fetch('https://translate.googleapis.com/translate_a/t?client=dict-chrome-ex&sl=en&tl=ar&q=hi', { mode: 'no-cors' }).catch(() => {});
         fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&dt=t&q=hi', { mode: 'no-cors' }).catch(() => {});
@@ -1619,7 +1794,9 @@
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         if (isScanning) stopOcrScanning();
-        if (videoStreamObj && !(currentTabMode === 'tv' && isTvPaired)) stopCameraFeed();
+        if (videoStreamObj && !(currentTabMode === 'tv' && tvSubMode === 'camera' && isTvPaired)) {
+          stopCameraFeed();
+        }
       }
     });
 
@@ -1632,113 +1809,147 @@
       stopCameraFeed();
     });
 
-    // ================= 4. تهيئة محرك Tesseract =================
+    // ================= 4. تهيئة محرك Tesseract وإحماء WASM مسبقاً =================
     async function initTesseract() {
       try {
         if (window.Tesseract && !tessWorker) {
-          tessWorker = await Tesseract.createWorker('eng', 1, { cacheMethod: 'write' });
+          tessWorker = await Tesseract.createWorker('eng', 1, {
+            cacheMethod: 'write'
+          });
           await tessWorker.setParameters({
             tessedit_pageseg_mode: Tesseract.PSM.SINGLE_BLOCK,
             preserve_interword_spaces: '1',
             tessedit_char_whitelist: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,?!'\"-:;() "
           });
           const warmCvs = document.createElement('canvas');
-          warmCvs.width = 40; warmCvs.height = 16;
+          warmCvs.width = 40;
+          warmCvs.height = 16;
           const wCtx = warmCvs.getContext('2d');
-          wCtx.fillStyle = '#FFFFFF'; wCtx.fillRect(0, 0, 40, 16);
+          wCtx.fillStyle = '#FFFFFF';
+          wCtx.fillRect(0, 0, 40, 16);
           await tessWorker.recognize(warmCvs).catch(() => {});
         }
       } catch (e) {}
     }
     initTesseract();
 
-    // ================= 5. التبديل بين الأوضاع الثلاثة وإخبار التلفاز فوراً لتجنب أي تداخل =================
+    // ================= 5. التبديل بين الوضعين وخياري التلفاز (الكاميرا / الشاشة) =================
     function switchMode(mode) {
       if (currentTabMode === mode) return;
 
-      if (isScanning) stopOcrScanning();
+      if (isScanning) {
+        stopOcrScanning();
+      }
 
-      if (mode === 'tv_ultra' || (mode === 'tv' && !isTvPaired)) {
+      if (mode === 'tv' && (!isTvPaired || tvSubMode === 'screen')) {
         stopCameraFeed();
       }
 
       currentTabMode = mode;
-      lastValidEngSentence = '';
-      lastValidArSentence = '';
 
       const btnPhone = document.getElementById('tabBtnPhone');
       const btnTv = document.getElementById('tabBtnTv');
-      const btnUltra = document.getElementById('tabBtnTvUltra');
-      const tvUnpairedSec = document.getElementById('tvUnpairedSection');
-      const camWorkspaceSec = document.getElementById('cameraWorkspaceSection');
-      const ultraWorkspaceSec = document.getElementById('tvUltraWorkspaceSection');
-      const pairHeading = document.getElementById('pairModeHeading');
-      const pairSubDesc = document.getElementById('pairModeSubDesc');
-
-      const activeTabCls = 'flex-1 py-2 text-cosmo font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-all';
-      const inactiveTabCls = 'flex-1 py-2 font-bold text-xs sm:text-sm text-[var(--text-muted)] flex items-center justify-center gap-1.5 transition-all';
-
-      btnPhone.className = mode === 'phone' ? activeTabCls : inactiveTabCls;
-      btnTv.className = mode === 'tv' ? activeTabCls : inactiveTabCls;
-      btnUltra.className = mode === 'tv_ultra' ? activeTabCls : inactiveTabCls;
+      const tvSubSelector = document.getElementById('tvSubModeSelector');
 
       if (mode === 'phone') {
+        btnPhone.className = 'flex-1 py-2 text-cosmo font-black text-sm flex items-center justify-center gap-2 transition-all';
+        btnTv.className = 'flex-1 py-2 font-bold text-sm text-[var(--text-muted)] flex items-center justify-center gap-2 transition-all';
+        if (tvSubSelector) tvSubSelector.classList.add('hidden');
+      } else {
+        btnTv.className = 'flex-1 py-2 text-cosmo font-black text-sm flex items-center justify-center gap-2 transition-all';
+        btnPhone.className = 'flex-1 py-2 font-bold text-sm text-[var(--text-muted)] flex items-center justify-center gap-2 transition-all';
+        if (tvSubSelector) tvSubSelector.classList.remove('hidden');
+      }
+
+      updateTvSubModeUI();
+      refreshTrialUI();
+      updateWorkspaceVisibility();
+    }
+
+    function selectTvSubMode(sub) {
+      if (tvSubMode === sub) return;
+      tvSubMode = sub;
+
+      if (tvSubMode === 'screen') {
+        stopCameraFeed();
+      } else if (isTvPaired && currentTabMode === 'tv' && !videoStreamObj) {
+        startCameraFeed();
+      }
+
+      updateTvSubModeUI();
+      updateWorkspaceVisibility();
+
+      if (isTvPaired) {
+        sendCrossDeviceEvent({
+          type: 'MODE_SWITCH',
+          mode: tvSubMode === 'screen' ? 'SCREEN_MODE' : 'CAMERA_MODE',
+          code: pairedRoomCode,
+          style: subStyleConfig
+        });
+      }
+    }
+
+    function updateTvSubModeUI() {
+      const btnCam = document.getElementById('tvSubBtnCamera');
+      const btnScr = document.getElementById('tvSubBtnScreen');
+      const hintTxt = document.getElementById('pairModeHintText');
+
+      if (tvSubMode === 'camera') {
+        if (btnCam) {
+          btnCam.className = 'tv-submode-pill py-2 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-2 transition-all text-cosmo';
+          btnCam.style.backgroundColor = 'rgba(245, 166, 35, 0.12)';
+        }
+        if (btnScr) {
+          btnScr.className = 'tv-submode-pill py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all text-[var(--text-muted)]';
+          btnScr.style.backgroundColor = 'transparent';
+        }
+        if (hintTxt) {
+          hintTxt.textContent = currentAppLang === 'ar'
+            ? 'الوضع المختار: وضع الكاميرا (تصوير التلفاز بالكاميرا)'
+            : 'Selected: Camera Mode (Scan TV via phone camera)';
+        }
+      } else {
+        if (btnScr) {
+          btnScr.className = 'tv-submode-pill py-2 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-2 transition-all text-cosmo';
+          btnScr.style.backgroundColor = 'rgba(245, 166, 35, 0.12)';
+        }
+        if (btnCam) {
+          btnCam.className = 'tv-submode-pill py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all text-[var(--text-muted)]';
+          btnCam.style.backgroundColor = 'transparent';
+        }
+        if (hintTxt) {
+          hintTxt.textContent = currentAppLang === 'ar'
+            ? 'الوضع المختار: وضع الشاشة (ترجمة شاشة اللعبة كاملة تلقائياً)'
+            : 'Selected: Screen Mode (Full-screen automatic overlay translation)';
+        }
+      }
+    }
+
+    function updateWorkspaceVisibility() {
+      const tvUnpairedSec = document.getElementById('tvUnpairedSection');
+      const tvScreenSec = document.getElementById('tvScreenModeSection');
+      const camWorkspaceSec = document.getElementById('cameraWorkspaceSection');
+
+      if (currentTabMode === 'phone') {
         tvUnpairedSec.classList.add('hidden');
-        ultraWorkspaceSec.classList.add('hidden');
+        tvScreenSec.classList.add('hidden');
         camWorkspaceSec.classList.remove('hidden');
-        if (isTvPaired) {
-          sendCrossDeviceEvent({ type: 'MODE_SWITCH', mode: 'IDLE' });
-        }
-      } else if (mode === 'tv') {
-        ultraWorkspaceSec.classList.add('hidden');
-        if (pairHeading) pairHeading.textContent = 'اقتران التلفاز (فئة Pro)';
-        if (pairSubDesc) {
-          pairSubDesc.textContent = 'التصوير بالكاميرا من الجوال وعرض الترجمة مباشرة على التلفاز (التلفاز يعرض فقط دون قراءة الشاشة)';
-        }
-        if (isTvPaired && hasProAccess()) {
-          tvUnpairedSec.classList.add('hidden');
-          camWorkspaceSec.classList.remove('hidden');
-          // أمر صارم للتلفاز: أوقف تصوير الشاشة وتحول لوضع العرض السلبي فقط
-          sendCrossDeviceEvent({
-            type: 'MODE_SWITCH',
-            mode: 'CAMERA_PRO',
-            tier: getEffectiveTier(),
-            sessionToken: activeSessionToken,
-            style: subStyleConfig
-          });
-        } else {
+      } else {
+        if (!isTvPaired) {
           tvUnpairedSec.classList.remove('hidden');
+          tvScreenSec.classList.add('hidden');
           camWorkspaceSec.classList.add('hidden');
-        }
-      } else if (mode === 'tv_ultra') {
-        camWorkspaceSec.classList.add('hidden');
-        if (pairHeading) pairHeading.textContent = 'اقتران التلفاز ألترا (حصري لفئة Ultra)';
-        if (pairSubDesc) {
-          pairSubDesc.textContent = 'التلفاز يقرأ النص الأصلي من شاشته مباشرة ويرسله لجوالك لترجمته وعرضه فوق النص الأصلي بدون كاميرا';
-        }
-        if (isTvPaired && hasUltraAccess()) {
+        } else if (tvSubMode === 'screen') {
           tvUnpairedSec.classList.add('hidden');
-          ultraWorkspaceSec.classList.remove('hidden');
-          isUltraStreamActive = true;
-          sendCrossDeviceEvent({
-            type: 'MODE_SWITCH',
-            mode: 'TV_ULTRA',
-            tier: 'ultra',
-            sessionToken: activeSessionToken,
-            style: subStyleConfig,
-            roi: ultraTvRoi
-          });
+          tvScreenSec.classList.remove('hidden');
+          camWorkspaceSec.classList.add('hidden');
         } else {
-          if (isTvPaired && !hasUltraAccess()) {
-            // إذا كان مقترناً بباقة Pro وانتقل لألترا، أوقف التلفاز واطلب ترقية Ultra
-            sendCrossDeviceEvent({ type: 'MODE_SWITCH', mode: 'IDLE' });
-          }
-          tvUnpairedSec.classList.remove('hidden');
-          ultraWorkspaceSec.classList.add('hidden');
+          tvUnpairedSec.classList.add('hidden');
+          tvScreenSec.classList.add('hidden');
+          camWorkspaceSec.classList.remove('hidden');
         }
       }
 
-      refreshTrialUI();
       updateSubtitleVisibilityForActiveMode();
     }
 
@@ -1747,7 +1958,7 @@
       const landSubCard = document.getElementById('landSubtitleCard');
       const tvStrip = document.getElementById('phoneTvControlStrip');
 
-      const hidePhoneSubBox = (currentTabMode === 'tv' && isTvPaired);
+      const hidePhoneSubBox = (currentTabMode === 'tv' && isTvPaired && tvSubMode === 'camera');
 
       if (hidePhoneSubBox) {
         subCard.classList.add('hidden');
@@ -1756,59 +1967,31 @@
       } else {
         subCard.classList.remove('hidden');
         if (landSubCard) landSubCard.classList.remove('hidden');
-        if (tvStrip) tvStrip.classList.toggle('hidden', !(isTvPaired && currentTabMode === 'tv'));
+        if (tvStrip) tvStrip.classList.toggle('hidden', !isTvPaired);
       }
     }
 
-    // ================= 6. إدارة الصلاحيات والفئات (Free vs Pro vs Ultra) =================
-    function hasProAccess() {
-      return userSubscriptionTier === 'pro' || userSubscriptionTier === 'ultra' || (trialActive && trialSecondsLeft > 0);
-    }
-
-    function hasUltraAccess() {
-      return userSubscriptionTier === 'ultra';
-    }
-
-    function getEffectiveTier() {
-      if (userSubscriptionTier === 'ultra') return 'ultra';
-      if (userSubscriptionTier === 'pro' || (trialActive && trialSecondsLeft > 0)) return 'pro';
-      return 'free';
-    }
-
-    function refreshTierBadgeUI() {
-      const pill = document.getElementById('activeTierPill');
-      if (!pill) return;
-      if (userSubscriptionTier === 'ultra') {
-        pill.textContent = 'ULTRA';
-        pill.classList.remove('hidden');
-      } else if (userSubscriptionTier === 'pro') {
-        pill.textContent = 'PRO';
-        pill.classList.remove('hidden');
-      } else {
-        pill.classList.add('hidden');
-      }
-    }
-
+    // ================= 6. إدارة التجربة المجانية (ساعتان) =================
     function refreshTrialUI() {
       const actBox = document.getElementById('trialActivationBox');
       const banner = document.getElementById('trialBanner');
-      // التجربة المجانية تمنح فئة Pro (وليس Ultra)
-      if (currentTabMode !== 'tv' || hasProAccess()) {
+      if (currentTabMode !== 'tv' || isProUser) {
         actBox.classList.add('hidden');
-        if (trialActive && trialSecondsLeft > 0 && userSubscriptionTier === 'free' && currentTabMode === 'tv') {
-          banner.classList.remove('hidden');
-        } else {
-          banner.classList.add('hidden');
-        }
+        banner.classList.add('hidden');
         return;
       }
-      actBox.classList.remove('hidden');
-      banner.classList.add('hidden');
+      if (trialActive && trialSecondsLeft > 0) {
+        actBox.classList.add('hidden');
+        banner.classList.remove('hidden');
+      } else {
+        actBox.classList.remove('hidden');
+        banner.classList.add('hidden');
+      }
     }
 
     function activateManualFreeTrial() {
       if (localStorage.getItem('siyaq_trial_exhausted') === '1') {
-        openSubModalForTier('pro');
+        openView('subModal');
         return;
       }
       trialActive = true;
@@ -1825,59 +2008,25 @@
             clearInterval(trialInterval);
             trialActive = false;
             localStorage.setItem('siyaq_trial_exhausted', '1');
-            if (isTvPaired && userSubscriptionTier === 'free') unpairTvDevice();
-            openSubModalForTier('pro');
+            if (isTvPaired) unpairTvDevice();
+            openView('subModal');
           }
         }, 1000);
       }
-      notify('بدأت تجربة فئة Pro المجانية لمدة ساعتين ✓');
+      notify(currentAppLang === 'ar' ? 'بدأت التجربة المجانية لمدة ساعتين ✓' : '2-hour free trial started ✓');
     }
 
-    function openSubModalForTier(tier) {
-      selectedModalTier = tier;
-      document.querySelectorAll('.sub-tier-card').forEach(c => {
-        const cardTier = c.getAttribute('data-tier');
-        if (cardTier === tier && !c.dataset.marked) {
-          c.className = 'sub-tier-card p-3.5 rounded-2xl clean-surface border-2 border-[#F5A623] space-y-1 cursor-pointer';
-        } else {
-          c.className = 'sub-tier-card p-3.5 rounded-2xl clean-surface border border-[var(--border-col)] space-y-1 cursor-pointer';
-        }
-      });
-      // تمييز أول بطاقة مطابقة للفئة المطلوبة
-      const firstMatch = document.querySelector(`.sub-tier-card[data-tier="${tier}"]`);
-      if (firstMatch) {
-        document.querySelectorAll('.sub-tier-card').forEach(c => {
-          c.className = 'sub-tier-card p-3.5 rounded-2xl clean-surface border border-[var(--border-col)] space-y-1 cursor-pointer';
-        });
-        firstMatch.className = 'sub-tier-card p-3.5 rounded-2xl clean-surface border-2 border-[#F5A623] space-y-1 cursor-pointer';
-      }
-      const cta = document.getElementById('subscribeCtaLabel');
-      if (cta) {
-        cta.textContent = tier === 'ultra' ? 'تفعيل باقة Ultra الآن' : 'تفعيل باقة Pro الآن';
+    function canAccessTvProFeatures() {
+      if (isProUser || (trialActive && trialSecondsLeft > 0)) return true;
+      if (localStorage.getItem('siyaq_trial_exhausted') !== '1') {
+        activateManualFreeTrial();
+        return true;
       }
       openView('subModal');
+      return false;
     }
 
-    function canAccessCurrentTvTab() {
-      if (currentTabMode === 'tv_ultra') {
-        if (hasUltraAccess()) return true;
-        openSubModalForTier('ultra');
-        notify('وضع التلفاز ألترا متاح حصرياً لمشتركي باقة Ultra');
-        return false;
-      }
-      if (currentTabMode === 'tv') {
-        if (hasProAccess()) return true;
-        if (localStorage.getItem('siyaq_trial_exhausted') !== '1') {
-          activateManualFreeTrial();
-          return true;
-        }
-        openSubModalForTier('pro');
-        return false;
-      }
-      return true;
-    }
-
-    // ================= 7. الكاميرا فائقة الحدة =================
+    // ================= 7. الكاميرا فائقة الحدة مع إدارة الحرارة الذكية =================
     async function selectSharpestBackCameraStream() {
       const baseConstraints = {
         video: {
@@ -1953,15 +2102,23 @@
           if (caps.focusMode.includes('single-shot')) adv.focusMode = 'single-shot';
           else if (caps.focusMode.includes('continuous')) adv.focusMode = 'continuous';
         }
-        if (caps.exposureMode && caps.exposureMode.includes('continuous')) adv.exposureMode = 'continuous';
-        if (caps.pointsOfInterest) adv.pointsOfInterest = [{ x: centerX, y: centerY }];
-        if (caps.zoom && caps.zoom.max >= 1.35) adv.zoom = Math.min(caps.zoom.max, Math.max(caps.zoom.min || 1, 1.35));
-        if (Object.keys(adv).length > 0) await activeVideoTrack.applyConstraints({ advanced: [adv] });
+        if (caps.exposureMode && caps.exposureMode.includes('continuous')) {
+          adv.exposureMode = 'continuous';
+        }
+        if (caps.pointsOfInterest) {
+          adv.pointsOfInterest = [{ x: centerX, y: centerY }];
+        }
+        if (caps.zoom && caps.zoom.max >= 1.35) {
+          adv.zoom = Math.min(caps.zoom.max, Math.max(caps.zoom.min || 1, 1.35));
+        }
+        if (Object.keys(adv).length > 0) {
+          await activeVideoTrack.applyConstraints({ advanced: [adv] });
+        }
       } catch (e) {}
     }
 
     async function startCameraFeed() {
-      if (videoStreamObj || currentTabMode === 'tv_ultra') return;
+      if (videoStreamObj) return;
       warmupTranslationConnections();
       try {
         videoStreamObj = await selectSharpestBackCameraStream();
@@ -1972,21 +2129,29 @@
         v1.srcObject = videoStreamObj;
         v2.srcObject = videoStreamObj;
         const isLandOpen = !document.getElementById('landscapeFullOverlay').classList.contains('hidden');
-        if (isLandOpen) { v1.pause(); v2.play().catch(() => {}); }
-        else { v2.pause(); v1.play().catch(() => {}); }
+        if (isLandOpen) {
+          v1.pause();
+          v2.play().catch(() => {});
+        } else {
+          v2.pause();
+          v1.play().catch(() => {});
+        }
 
         document.getElementById('camCover').classList.add('hidden');
         document.getElementById('roiRect').classList.remove('hidden');
+
         setTimeout(() => focusCameraOnRoiBox(true), 200);
       } catch (err) {
-        notify('يرجى السماح بصلاحية الكاميرا');
+        notify(currentAppLang === 'ar' ? 'يرجى السماح بصلاحية الكاميرا' : 'Please allow camera access');
       }
     }
 
     function stopCameraFeed() {
       if (isScanning) stopOcrScanning();
       if (videoStreamObj) {
-        try { videoStreamObj.getTracks().forEach(track => track.stop()); } catch (e) {}
+        try {
+          videoStreamObj.getTracks().forEach(track => track.stop());
+        } catch (e) {}
         videoStreamObj = null;
         activeVideoTrack = null;
       }
@@ -2018,12 +2183,15 @@
       const handleEl = document.getElementById(handleId);
       const containerEl = document.getElementById(containerId);
 
-      let mode = null, startX = 0, startY = 0, startRoi = { ...roiState };
+      let mode = null;
+      let startX = 0, startY = 0;
+      let startRoi = { ...roiState };
 
       handleEl.addEventListener('pointerdown', (e) => {
         e.stopPropagation();
         mode = 'resize';
-        startX = e.clientX; startY = e.clientY;
+        startX = e.clientX;
+        startY = e.clientY;
         startRoi = { ...roiState };
         handleEl.setPointerCapture(e.pointerId);
       });
@@ -2031,7 +2199,8 @@
       rectEl.addEventListener('pointerdown', (e) => {
         if (e.target === handleEl || handleEl.contains(e.target)) return;
         mode = 'move';
-        startX = e.clientX; startY = e.clientY;
+        startX = e.clientX;
+        startY = e.clientY;
         startRoi = { ...roiState };
         rectEl.setPointerCapture(e.pointerId);
       });
@@ -2040,6 +2209,7 @@
         if (!mode) return;
         const bounds = containerEl.getBoundingClientRect();
         if (!bounds.width || !bounds.height) return;
+
         const dx = (e.clientX - startX) / bounds.width;
         const dy = (e.clientY - startY) / bounds.height;
 
@@ -2083,7 +2253,7 @@
       });
     }
 
-    // ================= 9. تشغيل وإيقاف الترجمة بالكاميرا =================
+    // ================= 9. تشغيل وإيقاف الترجمة الفورية (< 1 ثانية) =================
     function syncAllScanButtonsUI() {
       const dict = UI_TRANSLATIONS[currentAppLang];
       const mainIcon = document.getElementById('translateBtnIcon');
@@ -2111,7 +2281,10 @@
     }
 
     function toggleOcrScanning() {
-      if (!videoStreamObj) { startCameraFeed(); return; }
+      if (!videoStreamObj) {
+        startCameraFeed();
+        return;
+      }
 
       isScanning = !isScanning;
       const camBox = document.getElementById('cameraBox');
@@ -2136,7 +2309,15 @@
 
         focusCameraOnRoiBox(false);
         lastTextDetectedTimestamp = Date.now();
+
         processCleanSubtitleFrame();
+        setTimeout(() => {
+          if (isScanning && !lastValidArSentence) {
+            lastGrayscaleGrid = null;
+            forceInitialScanCount = 1;
+            processCleanSubtitleFrame();
+          }
+        }, 160);
       } else {
         stopOcrScanning();
       }
@@ -2146,9 +2327,12 @@
       isScanning = false;
       isOcrRunning = false;
       pendingCandidateEng = '';
-      if (scanLoopTimerId) { clearTimeout(scanLoopTimerId); scanLoopTimerId = null; }
+      if (scanLoopTimerId) {
+        clearTimeout(scanLoopTimerId);
+        scanLoopTimerId = null;
+      }
       syncAllScanButtonsUI();
-      sendCrossDeviceEvent({ type: 'SUB_CLEAR', mode: 'CAMERA_PRO' });
+      sendCrossDeviceEvent({ type: 'SUB_CLEAR' });
     }
 
     function expandCameraForEdit() {
@@ -2168,27 +2352,38 @@
       const waitMsg = UI_TRANSLATIONS[currentAppLang].waitingSubtitles;
       const mainOut = document.getElementById('arabicTextOut');
       const landOut = document.getElementById('landArabicOut');
-      if (mainOut) { mainOut.textContent = waitMsg; mainOut.style.opacity = '0.55'; }
-      if (landOut) landOut.textContent = waitMsg;
-      sendCrossDeviceEvent({ type: 'SUB_CLEAR', mode: 'CAMERA_PRO' });
+      if (mainOut) {
+        mainOut.textContent = waitMsg;
+        mainOut.style.opacity = '0.55';
+      }
+      if (landOut) {
+        landOut.textContent = waitMsg;
+      }
+      sendCrossDeviceEvent({ type: 'SUB_CLEAR' });
     }
 
     function checkAndExpireSubtitleAfterHoldTime() {
       if (isWaitingStateDisplayed) return;
-      if (Date.now() - lastTextDetectedTimestamp >= SUBTITLE_HOLD_AFTER_END_MS) showWaitingForSubtitlesState();
+      if (Date.now() - lastTextDetectedTimestamp >= SUBTITLE_HOLD_AFTER_END_MS) {
+        showWaitingForSubtitlesState();
+      }
     }
 
-    // ================= 10. اقتصاص مربع القراءة + معالجة الصور + قفل الثبات =================
+    // ================= 10. اقتصاص مربع القراءة فقط + بوابة السكون + قفل الثبات =================
     function getActiveVideoAndCropRect() {
       const isLandOpen = !document.getElementById('landscapeFullOverlay').classList.contains('hidden');
       const video = isLandOpen ? document.getElementById('landscapeVideo') : document.getElementById('mainVideo');
       const containerEl = isLandOpen ? document.getElementById('landCamStage') : document.getElementById('cameraBox');
 
-      const vw = video.videoWidth, vh = video.videoHeight;
+      const vw = video.videoWidth;
+      const vh = video.videoHeight;
       if (!vw || !vh) return null;
 
-      const cw = containerEl.clientWidth || 320, ch = containerEl.clientHeight || 160;
-      const videoRatio = vw / vh, containerRatio = cw / ch;
+      const cw = containerEl.clientWidth || 320;
+      const ch = containerEl.clientHeight || 160;
+
+      const videoRatio = vw / vh;
+      const containerRatio = cw / ch;
 
       let visibleW = vw, visibleH = vh, offsetX = 0, offsetY = 0;
       if (containerRatio > videoRatio) {
@@ -2199,7 +2394,8 @@
         offsetX = (vw - visibleW) / 2;
       }
 
-      const padX = roiState.width * 0.02, padY = roiState.height * 0.04;
+      const padX = roiState.width * 0.02;
+      const padY = roiState.height * 0.04;
       const sx = Math.max(0, Math.floor(offsetX + (roiState.left + padX) * visibleW));
       const sy = Math.max(0, Math.floor(offsetY + (roiState.top + padY) * visibleH));
       const sw = Math.max(48, Math.floor((roiState.width - padX * 2) * visibleW));
@@ -2214,7 +2410,9 @@
       mCtx.drawImage(video, sx, sy, sw, sh, 0, 0, 40, 14);
       const data = mCtx.getImageData(0, 0, 40, 14).data;
 
-      let brightPixels = 0, darkPixels = 0;
+      let brightPixels = 0;
+      let darkPixels = 0;
+
       for (let i = 0, j = 0; i < data.length; i += 4, j++) {
         const lum = (data[i] * 77 + data[i + 1] * 150 + data[i + 2] * 29) >> 8;
         _reusableGateGrid[j] = lum;
@@ -2223,20 +2421,27 @@
       }
 
       const hasSubtitleContrast = brightPixels >= 2 && darkPixels >= 15;
+
       if (forceInitialScanCount > 0 || !lastGrayscaleGrid) {
         if (forceInitialScanCount > 0) forceInitialScanCount--;
-        return { changed: true, hasSubtitleContrast, gridSnapshot: new Uint8Array(_reusableGateGrid) };
+        const snap = new Uint8Array(_reusableGateGrid);
+        return { changed: true, hasSubtitleContrast, gridSnapshot: snap };
       }
 
-      let totalDiff = 0, localMaxDiff = 0;
+      let totalDiff = 0;
+      let localMaxDiff = 0;
       for (let j = 0; j < 560; j++) {
         const diff = Math.abs(_reusableGateGrid[j] - lastGrayscaleGrid[j]);
         totalDiff += diff;
         if (diff > localMaxDiff) localMaxDiff = diff;
       }
-      if ((totalDiff / 560) >= 2.1 || localMaxDiff >= 28) {
-        return { changed: true, hasSubtitleContrast, gridSnapshot: new Uint8Array(_reusableGateGrid) };
+      const avgDiff = totalDiff / 560;
+
+      if (avgDiff >= 2.1 || localMaxDiff >= 28) {
+        const snap = new Uint8Array(_reusableGateGrid);
+        return { changed: true, hasSubtitleContrast, gridSnapshot: snap };
       }
+
       return { changed: false, hasSubtitleContrast, gridSnapshot: lastGrayscaleGrid };
     }
 
@@ -2261,21 +2466,31 @@
         lum[p] = (d[i] * 77 + d[i + 1] * 150 + d[i + 2] * 29) >> 8;
       }
 
-      let minStrokeRow = targetH, maxStrokeRow = -1, maxStrokesInSingleRow = 0;
+      let minStrokeRow = targetH, maxStrokeRow = -1;
+      let maxStrokesInSingleRow = 0;
       let minStrokeCol = targetW, maxStrokeCol = -1;
 
       for (let y = 2; y < targetH - 2; y++) {
         const rowOff = y * targetW;
-        let rowStrokeCount = 0, rMinX = targetW, rMaxX = -1;
+        let rowStrokeCount = 0;
+        let rMinX = targetW, rMaxX = -1;
 
         for (let x = 6; x < targetW - 6; x++) {
           const cVal = lum[rowOff + x];
           if (cVal < 142) continue;
 
-          let lMin = Math.min(lum[rowOff + x - 1], lum[rowOff + x - 2], lum[rowOff + x - 3], lum[rowOff + x - 4], lum[rowOff + x - 5]);
+          let lMin = lum[rowOff + x - 1];
+          if (lum[rowOff + x - 2] < lMin) lMin = lum[rowOff + x - 2];
+          if (lum[rowOff + x - 3] < lMin) lMin = lum[rowOff + x - 3];
+          if (lum[rowOff + x - 4] < lMin) lMin = lum[rowOff + x - 4];
+          if (lum[rowOff + x - 5] < lMin) lMin = lum[rowOff + x - 5];
           if (lMin >= 98 || (cVal - lMin) < 42) continue;
 
-          let rMin = Math.min(lum[rowOff + x + 1], lum[rowOff + x + 2], lum[rowOff + x + 3], lum[rowOff + x + 4], lum[rowOff + x + 5]);
+          let rMin = lum[rowOff + x + 1];
+          if (lum[rowOff + x + 2] < rMin) rMin = lum[rowOff + x + 2];
+          if (lum[rowOff + x + 3] < rMin) rMin = lum[rowOff + x + 3];
+          if (lum[rowOff + x + 4] < rMin) rMin = lum[rowOff + x + 4];
+          if (lum[rowOff + x + 5] < rMin) rMin = lum[rowOff + x + 5];
           if (rMin >= 98 || (cVal - rMin) < 42) continue;
 
           rowStrokeCount++;
@@ -2283,7 +2498,10 @@
           if (x > rMaxX) rMaxX = x;
         }
 
-        if (rowStrokeCount > maxStrokesInSingleRow) maxStrokesInSingleRow = rowStrokeCount;
+        if (rowStrokeCount > maxStrokesInSingleRow) {
+          maxStrokesInSingleRow = rowStrokeCount;
+        }
+
         if (rowStrokeCount >= 6) {
           if (y < minStrokeRow) minStrokeRow = y;
           if (y > maxStrokeRow) maxStrokeRow = y;
@@ -2292,22 +2510,31 @@
         }
       }
 
-      if (maxStrokesInSingleRow < 7 || maxStrokeRow < minStrokeRow || (maxStrokeCol - minStrokeCol) < 18) return null;
+      if (maxStrokesInSingleRow < 7 || maxStrokeRow < minStrokeRow || (maxStrokeCol - minStrokeCol) < 18) {
+        return null;
+      }
 
-      const y0 = Math.max(0, minStrokeRow - 8), y1 = Math.min(targetH, maxStrokeRow + 8);
-      const x0 = Math.max(0, minStrokeCol - 14), x1 = Math.min(targetW, maxStrokeCol + 14);
-      const subW = x1 - x0, subH = y1 - y0;
+      const y0 = Math.max(0, minStrokeRow - 8);
+      const y1 = Math.min(targetH, maxStrokeRow + 8);
+      const x0 = Math.max(0, minStrokeCol - 14);
+      const x1 = Math.min(targetW, maxStrokeCol + 14);
+      const subW = x1 - x0;
+      const subH = y1 - y0;
 
       const subHist = _reusableSubHist;
       subHist.fill(0);
       const subTotal = subW * subH;
       for (let y = y0; y < y1; y++) {
         const rowOff = y * targetW;
-        for (let x = x0; x < x1; x++) subHist[lum[rowOff + x]]++;
+        for (let x = x0; x < x1; x++) {
+          subHist[lum[rowOff + x]]++;
+        }
       }
 
-      let subCum = 0, bgFloor = 85, fgCeil = 235;
-      const tFloor = subTotal * 0.66, tCeil = subTotal * 0.99;
+      let subCum = 0;
+      let bgFloor = 85, fgCeil = 235;
+      const tFloor = subTotal * 0.66;
+      const tCeil = subTotal * 0.99;
       for (let v = 0; v < 256; v++) {
         subCum += subHist[v];
         if (subCum >= tFloor && bgFloor === 85) bgFloor = v;
@@ -2316,8 +2543,11 @@
       if (fgCeil - bgFloor < 28) fgCeil = bgFloor + 28;
       const scale = 255.0 / (fgCeil - bgFloor);
 
-      const pad = 10, outW = subW + pad * 2, outH = subH + pad * 2;
-      outCanvas.width = outW; outCanvas.height = outH;
+      const pad = 10;
+      const outW = subW + pad * 2;
+      const outH = subH + pad * 2;
+      outCanvas.width = outW;
+      outCanvas.height = outH;
 
       const oCtx = outCanvas.getContext('2d');
       const outImg = oCtx.createImageData(outW, outH);
@@ -2328,14 +2558,17 @@
         const srcRow = (y0 + y) * targetW + x0;
         const dstRow = (y + pad) * outW + pad;
         for (let x = 0; x < subW; x++) {
-          let norm = (lum[srcRow + x] - bgFloor) * scale;
-          norm = norm < 0 ? 0 : (norm > 255 ? 255 : norm);
+          const val = lum[srcRow + x];
+          let norm = (val - bgFloor) * scale;
+          if (norm < 0) norm = 0;
+          else if (norm > 255) norm = 255;
           const invGray = 255 - (norm | 0);
           const idx = (dstRow + x) << 2;
           od[idx] = od[idx + 1] = od[idx + 2] = invGray;
           od[idx + 3] = 255;
         }
       }
+
       oCtx.putImageData(outImg, 0, 0);
 
       const maxOptimalH = outH > 95 ? 104 : 62;
@@ -2350,13 +2583,20 @@
         fCtx.drawImage(outCanvas, 0, 0, fastCvs.width, fastCvs.height);
         return fastCvs;
       }
+
       return outCanvas;
     }
 
     function extractPureSubtitleSentence(rawOcrText) {
       if (!rawOcrText) return '';
-      const fixedVerticalBar = rawOcrText.replace(/(?<=\s)\|\s/g, 'I ').replace(/^\|(?=\s)/gm, 'I');
-      const rawLines = fixedVerticalBar.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      const fixedVerticalBar = rawOcrText
+        .replace(/(?<=\s)\|\s/g, 'I ')
+        .replace(/^\|(?=\s)/gm, 'I');
+
+      const rawLines = fixedVerticalBar
+        .split(/\r?\n/)
+        .map(l => l.trim())
+        .filter(Boolean);
 
       const validLines = [];
       for (let line of rawLines) {
@@ -2370,12 +2610,17 @@
           const pureAlpha = w.replace(/[^a-zA-Z]/g, '');
           const letters = pureAlpha.length;
           if (letters === 0) continue;
+
           if (letters === 1 && !/^[iIaA]$/.test(pureAlpha)) continue;
           if (/^([a-zA-Z])\1+$/i.test(pureAlpha)) continue;
           if (letters >= 2 && !/[aeiouyAEIOUY]/.test(pureAlpha)) continue;
+
           words.push(w);
         }
-        if (words.length > 0) validLines.push(words.join(' ').trim());
+
+        if (words.length === 0) continue;
+        const cleanLine = words.join(' ').trim();
+        validLines.push(cleanLine);
       }
 
       const fullSentence = validLines.join(' ').replace(/\s+/g, ' ').trim();
@@ -2386,13 +2631,19 @@
 
       if (finalWords.length === 1) {
         const singleLower = finalWords[0].toLowerCase().replace(/[^a-z]/g, '');
-        if (!ALLOWED_SINGLE_WORDS.has(singleLower) && singleLower.length < 5) return '';
+        if (!ALLOWED_SINGLE_WORDS.has(singleLower) && singleLower.length < 5) {
+          return '';
+        }
       } else if (finalWords.length === 2 && totalAlpha < 5) {
         const normPair = fullSentence.toLowerCase().replace(/[^a-z\s]/g, '').trim();
-        if (!INSTANT_GAMING_SHORT_PHRASES[normPair]) return '';
+        if (!INSTANT_GAMING_SHORT_PHRASES[normPair]) {
+          return '';
+        }
       }
 
-      if (totalAlpha < 3 && !INSTANT_GAMING_SHORT_PHRASES[fullSentence.toLowerCase().replace(/[^a-z]/g, '')]) return '';
+      if (totalAlpha < 3 && !INSTANT_GAMING_SHORT_PHRASES[fullSentence.toLowerCase().replace(/[^a-z]/g, '')]) {
+        return '';
+      }
 
       return fullSentence
         .replace(/\b(dont|don't)\b/gi, "don't")
@@ -2404,11 +2655,23 @@
         .replace(/\b(weve|we've)\b/gi, "we've")
         .replace(/\b(ive|i've)\b/gi, "I've")
         .replace(/\b(thats|that's)\b/gi, "that's")
-        .replace(/\b(whats|what's)\b/gi, "what's");
+        .replace(/\b(whats|what's)\b/gi, "what's")
+        .replace(/\b(heres|here's)\b/gi, "here's")
+        .replace(/\b(theres|there's)\b/gi, "there's")
+        .replace(/\b(didnt|didn't)\b/gi, "didn't")
+        .replace(/\b(doesnt|doesn't)\b/gi, "doesn't")
+        .replace(/\b(isnt|isn't)\b/gi, "isn't")
+        .replace(/\b(arent|aren't)\b/gi, "aren't")
+        .replace(/\b(wasnt|wasn't)\b/gi, "wasn't")
+        .replace(/\b(ill|i'll)\b/gi, "I'll");
     }
 
     function normalizeWordsForLock(sentence) {
-      return (sentence || '').toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/).filter(Boolean);
+      return (sentence || '')
+        .toLowerCase()
+        .replace(/[^a-z\s]/g, '')
+        .split(/\s+/)
+        .filter(Boolean);
     }
 
     function computeCharSimilarity(s1, s2) {
@@ -2437,6 +2700,7 @@
       const b = prevEng.toLowerCase().replace(/[^a-z]/g, '');
       if (!a || !b) return false;
       if (a === b) return true;
+
       if (computeCharSimilarity(a, b) >= 0.78) return true;
 
       const lenRatio = Math.min(a.length, b.length) / Math.max(a.length, b.length);
@@ -2447,20 +2711,31 @@
       if (wordsA.length === 0 || wordsB.length === 0) return false;
 
       let matches = 0;
-      for (const w1 of wordsA) if (wordsB.includes(w1)) matches++;
-      return (matches / Math.max(wordsA.length, wordsB.length)) >= 0.75;
+      for (const w1 of wordsA) {
+        if (wordsB.includes(w1)) matches++;
+      }
+
+      const similarity = matches / Math.max(wordsA.length, wordsB.length);
+      return similarity >= 0.75;
     }
 
     async function processCleanSubtitleFrame() {
-      if (!isScanning || !tessWorker || document.hidden || currentTabMode === 'tv_ultra') return;
+      if (!isScanning || !tessWorker || document.hidden) return;
 
       if (isOcrRunning) {
-        if (Date.now() - ocrStartedAt > 360) isOcrRunning = false;
-        else { scheduleNextFrameCheck(20); return; }
+        if (Date.now() - ocrStartedAt > 360) {
+          isOcrRunning = false;
+        } else {
+          scheduleNextFrameCheck(20);
+          return;
+        }
       }
 
       const crop = getActiveVideoAndCropRect();
-      if (!crop) { scheduleNextFrameCheck(55); return; }
+      if (!crop) {
+        scheduleNextFrameCheck(55);
+        return;
+      }
 
       const { video, sx, sy, sw, sh } = crop;
       const gate = analyzeFrameThermalGate(video, sx, sy, sw, sh);
@@ -2477,7 +2752,9 @@
         if (lastValidArSentence && !isWaitingStateDisplayed) {
           lastTextDetectedTimestamp = Date.now();
           scheduleNextFrameCheck(135);
-        } else scheduleNextFrameCheck(45);
+        } else {
+          scheduleNextFrameCheck(45);
+        }
         return;
       }
 
@@ -2575,7 +2852,98 @@
       scheduleNextFrameCheck(lastValidArSentence && !isWaitingStateDisplayed ? 135 : 45);
     }
 
-    // ================= 11. محرك الترجمة =================
+    // ================= 11. المحرك القابل للتنزيل (أوفلاين) + المحركات الحقيقية المتصلة بالسيرفرات =================
+    async function ensureOfflinePipelineLoaded(progressCb) {
+      if (offlineTranslatorPipeline) return offlineTranslatorPipeline;
+      const { pipeline, env } = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2');
+      env.allowLocalModels = false;
+      env.useBrowserCache = true;
+      offlineTranslatorPipeline = await pipeline('translation', 'Xenova/opus-mt-en-ar', {
+        quantized: true,
+        progress_callback: progressCb
+      });
+      isOfflineModelDownloaded = true;
+      localStorage.setItem('siyaq_offline_engine_ready', '1');
+      updateOfflineModelStatusUI();
+      return offlineTranslatorPipeline;
+    }
+
+    async function downloadOfflineTranslationModel() {
+      if (isOfflineModelDownloading) return;
+      isOfflineModelDownloading = true;
+
+      const wrap = document.getElementById('offlineDownloadProgressWrap');
+      const bar = document.getElementById('offlineDownloadProgressBar');
+      const pctTxt = document.getElementById('offlineDownloadPctText');
+      const statTxt = document.getElementById('offlineDownloadStatusText');
+      const btnLbl = document.getElementById('downloadOfflineBtnLabel');
+
+      if (wrap) wrap.classList.remove('hidden');
+      if (btnLbl) btnLbl.textContent = currentAppLang === 'ar' ? 'جاري التنزيل...' : 'Downloading...';
+
+      try {
+        await ensureOfflinePipelineLoaded((info) => {
+          if (info && typeof info.progress === 'number') {
+            const pct = Math.min(100, Math.max(1, Math.round(info.progress)));
+            if (bar) bar.style.width = pct + '%';
+            if (pctTxt) pctTxt.textContent = pct + '%';
+            if (statTxt) statTxt.textContent = currentAppLang === 'ar' ? 'تنزيل ملفات الذكاء الاصطناعي...' : 'Downloading neural weights...';
+          }
+        });
+
+        if (bar) bar.style.width = '100%';
+        if (pctTxt) pctTxt.textContent = '100%';
+        if (statTxt) statTxt.textContent = currentAppLang === 'ar' ? 'اكتمل التنزيل بنجاح ✓' : 'Download complete ✓';
+
+        selectCustomTranslatorEngine('offline_neural');
+        notify(currentAppLang === 'ar' ? 'تم تنزيل وتفعيل المحرك الأوفلاين بنجاح ✓' : 'Offline engine downloaded & active ✓');
+      } catch (e) {
+        if (statTxt) statTxt.textContent = currentAppLang === 'ar' ? 'تعذر التنزيل، تحقق من الشبكة' : 'Download failed, check network';
+        notify(currentAppLang === 'ar' ? 'تعذر تنزيل المحرك حالياً' : 'Could not download offline engine');
+      } finally {
+        isOfflineModelDownloading = false;
+        updateOfflineModelStatusUI();
+      }
+    }
+
+    async function deleteOfflineTranslationModel() {
+      try {
+        if ('caches' in window) {
+          await caches.delete('transformers-cache');
+        }
+      } catch (e) {}
+      offlineTranslatorPipeline = null;
+      isOfflineModelDownloaded = false;
+      localStorage.removeItem('siyaq_offline_engine_ready');
+      if (activeTranslator === 'offline_neural') {
+        selectCustomTranslatorEngine('google_gtx');
+      }
+      updateOfflineModelStatusUI();
+      notify(currentAppLang === 'ar' ? 'تم حذف المحرك المحلي من الجهاز' : 'Offline engine deleted');
+    }
+
+    function updateOfflineModelStatusUI() {
+      const badge = document.getElementById('offlineEngineBadge');
+      const btnLbl = document.getElementById('downloadOfflineBtnLabel');
+      const delBtn = document.getElementById('deleteOfflineEngineBtn');
+
+      if (isOfflineModelDownloaded) {
+        if (badge) {
+          badge.textContent = currentAppLang === 'ar' ? 'محمّل وجاهز ✓' : 'Downloaded ✓';
+          badge.className = 'text-[10px] font-black text-emerald-400';
+        }
+        if (btnLbl) btnLbl.textContent = currentAppLang === 'ar' ? 'تحديث / تفعيل المحرك' : 'Activate / Verify Engine';
+        if (delBtn) delBtn.classList.remove('hidden');
+      } else {
+        if (badge) {
+          badge.textContent = '~28 MB';
+          badge.className = 'text-[10px] font-bold text-[var(--text-muted)]';
+        }
+        if (btnLbl) btnLbl.textContent = UI_TRANSLATIONS[currentAppLang].downloadEngineBtn;
+        if (delBtn) delBtn.classList.add('hidden');
+      }
+    }
+
     function polishPureArabicGamingOutput(rawAr) {
       if (!rawAr) return '';
       const cleaned = rawAr
@@ -2583,77 +2951,111 @@
         .replace(/\s+([،؟!.,:])/g, '$1')
         .replace(/\s+/g, ' ')
         .trim();
-      return cleaned.replace(/[^ء-ي]/g, '').length <= 1 ? '' : cleaned;
+      const arabicLettersOnly = cleaned.replace(/[^ء-ي]/g, '');
+      if (arabicLettersOnly.length <= 1) return '';
+      return cleaned;
     }
 
-    async function translateViaOfflineNeuralLibrary(engSentence) {
-      try {
-        const pipe = await ensureOfflinePipelineLoaded();
-        const result = await pipe(engSentence, { max_new_tokens: 96 });
-        const rawAr = Array.isArray(result) && result[0]?.translation_text ? result[0].translation_text : '';
-        return polishPureArabicGamingOutput(rawAr);
-      } catch (e) {
-        return '';
-      }
-    }
-
-    async function translateViaDeepLContext(engSentence, signal) {
-      try {
-        const id = Math.floor(Math.random() * 90000) + 10000;
-        const bodyPayload = JSON.stringify({
-          jsonrpc: '2.0',
-          method: 'LMT_handle_jobs',
-          params: {
-            jobs: [{ kind: 'default', sentences: [{ text: engSentence, id: 1, prefix: '' }], raw_en_context_before: [], raw_en_context_after: [], preferred_num_beams: 1 }],
-            lang: { preference: { weight: {}, default: 'default' }, source_lang_computed: 'EN', target_lang: 'AR' },
-            priority: 1,
-            commonJobParams: { mode: 'translate', browserType: 1 },
-            timestamp: Date.now()
-          },
-          id
-        });
-        const r = await fetch('https://www2.deepl.com/jsonrpc?method=LMT_handle_jobs', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: bodyPayload,
-          signal
-        });
-        if (r.ok) {
-          const d = await r.json();
-          const beamText = d?.result?.translations?.[0]?.beams?.[0]?.sentences?.[0]?.text || '';
-          const ar = polishPureArabicGamingOutput(beamText);
-          if (ar) return ar;
-        }
-      } catch (e) {}
-
-      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&dt=t&q=${encodeURIComponent(engSentence)}`;
-      const r2 = await fetch(url, { signal });
-      if (!r2.ok) return '';
-      const d2 = await r2.json();
-      const combined = Array.isArray(d2) && Array.isArray(d2[0]) ? d2[0].map(seg => seg[0]).join('') : '';
-      return polishPureArabicGamingOutput(combined);
-    }
-
+    // ترجمة جملة واحدة عبر المحرك الحقيقي المختار
     async function translateFullSentenceInstant(engSentence) {
       const cacheKey = `${activeTranslator}::${engSentence.toLowerCase()}`;
-      if (translationMemoryCache.has(cacheKey)) return translationMemoryCache.get(cacheKey);
+      if (translationMemoryCache.has(cacheKey)) {
+        return translationMemoryCache.get(cacheKey);
+      }
 
+      let resultAr = '';
+
+      // 1. المحرك القابل للتنزيل (أوفلاين محلي على الجهاز)
       if (activeTranslator === 'offline_neural') {
-        const offlineAr = await translateViaOfflineNeuralLibrary(engSentence);
-        if (offlineAr) { setBoundedCache(cacheKey, offlineAr); return offlineAr; }
-        if (!navigator.onLine) return '';
-      }
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => { try { controller.abort(); } catch (e) {} }, 750);
-
-      if (activeTranslator === 'deepl_free') {
         try {
-          const deeplAr = await translateViaDeepLContext(engSentence, controller.signal);
-          clearTimeout(timeoutId);
-          if (deeplAr) { setBoundedCache(cacheKey, deeplAr); return deeplAr; }
-        } catch (e) { clearTimeout(timeoutId); }
+          const pipe = await ensureOfflinePipelineLoaded();
+          const out = await pipe(engSentence, { max_new_tokens: 96 });
+          const raw = Array.isArray(out) && out[0]?.translation_text ? out[0].translation_text : '';
+          resultAr = polishPureArabicGamingOutput(raw);
+        } catch (e) {}
+        if (resultAr) {
+          setBoundedCache(cacheKey, resultAr);
+          return resultAr;
+        }
       }
+
+      // 2. محرك DeepL الحقيقي (بمفتاح المستخدم المجاني أو المدفوع)
+      if (activeTranslator === 'deepl_free') {
+        const key = (userApiKeys.deepl_free || '').trim();
+        if (key) {
+          try {
+            const endpoint = key.endsWith(':fx')
+              ? 'https://api-free.deepl.com/v2/translate'
+              : 'https://api.deepl.com/v2/translate';
+            const resp = await fetch(endpoint, {
+              method: 'POST',
+              headers: {
+                'Authorization': `DeepL-Auth-Key ${key}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                text: [engSentence],
+                source_lang: 'EN',
+                target_lang: 'AR'
+              })
+            });
+            if (resp.ok) {
+              const data = await resp.json();
+              const raw = data?.translations?.[0]?.text || '';
+              resultAr = polishPureArabicGamingOutput(raw);
+            }
+          } catch (e) {}
+          if (resultAr) {
+            setBoundedCache(cacheKey, resultAr);
+            return resultAr;
+          }
+        }
+      }
+
+      // 3. محركات الذكاء الاصطناعي الحقيقية على حساب المستخدم (BYOK)
+      if (activeTranslator.startsWith('pro_')) {
+        const key = (userApiKeys[activeTranslator] || '').trim();
+        if (key) {
+          resultAr = await callRealAiProviderByok(activeTranslator, key, engSentence);
+          if (resultAr) {
+            setBoundedCache(cacheKey, resultAr);
+            return resultAr;
+          }
+        }
+      }
+
+      // 4. محرك Microsoft Translator المجاني الحقيقي
+      if (activeTranslator === 'microsoft_edge') {
+        try {
+          const authRes = await fetch('https://edge.microsoft.com/translate/auth');
+          if (authRes.ok) {
+            const jwtToken = await authRes.text();
+            const msRes = await fetch('https://api-edge.cognitive.microsofttranslator.com/translate?from=en&to=ar&api-version=3.0', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${jwtToken}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify([{ Text: engSentence }])
+            });
+            if (msRes.ok) {
+              const msJson = await msRes.json();
+              const raw = msJson?.[0]?.translations?.[0]?.text || '';
+              resultAr = polishPureArabicGamingOutput(raw);
+              if (resultAr) {
+                setBoundedCache(cacheKey, resultAr);
+                return resultAr;
+              }
+            }
+          }
+        } catch (e) {}
+      }
+
+      // 5. السباق المتوازي المجاني فائق السرعة لخوادم Google (الافتراضي والاحتياطي الفوري)
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => {
+        try { controller.abort(); } catch (e) {}
+      }, 750);
 
       const fetchFastDict = async () => {
         const url = `https://translate.googleapis.com/translate_a/t?client=dict-chrome-ex&sl=en&tl=ar&q=${encodeURIComponent(engSentence)}`;
@@ -2692,8 +3094,135 @@
         const fastestAr = await Promise.any([fetchFastDict(), fetchGtx(), fetchClients5()]);
         clearTimeout(timeoutId);
         try { controller.abort(); } catch (e) {}
-        if (fastestAr) { setBoundedCache(cacheKey, fastestAr); return fastestAr; }
-      } catch (e) { clearTimeout(timeoutId); }
+        if (fastestAr) {
+          setBoundedCache(cacheKey, fastestAr);
+          return fastestAr;
+        }
+      } catch (e) {
+        clearTimeout(timeoutId);
+      }
+      return '';
+    }
+
+    // ترجمة جماعية سريعة لكل نصوص الشاشة في طلب واحد (لوضع الشاشة الكاملة)
+    async function translateBatchBlocksInstant(engList) {
+      if (!engList || engList.length === 0) return [];
+      if (engList.length === 1) {
+        const one = await translateFullSentenceInstant(engList[0]);
+        return [one];
+      }
+
+      // في المحرك الأوفلاين نترجم بالتتابع السريع محلياً
+      if (activeTranslator === 'offline_neural') {
+        const outArr = [];
+        for (const item of engList) {
+          outArr.push(await translateFullSentenceInstant(item));
+        }
+        return outArr;
+      }
+
+      // في المحركات السحابية نجمعها في طلب واحد مفصول بسطر جديد لترجمتها كلها في أجزاء من الثانية
+      const joined = engList.join('\n');
+      const translatedJoined = await translateFullSentenceInstant(joined);
+      if (translatedJoined) {
+        const lines = translatedJoined.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+        if (lines.length === engList.length) {
+          return lines;
+        }
+      }
+
+      // إذا اختلفت عدد الأسطر، نترجم كل كتلة بالتوازي الكامل
+      return Promise.all(engList.map(txt => translateFullSentenceInstant(txt)));
+    }
+
+    // اتصال حقيقي مباشر بسيرفرات Gemini / OpenAI / Claude / DeepSeek باستخدام مفتاح المستخدم الخاص
+    async function callRealAiProviderByok(providerId, apiKey, engText) {
+      const sysPrompt = 'Translate this video game dialogue or UI text into natural, concise Arabic. Output ONLY the Arabic translation with no notes or English.';
+      try {
+        if (providerId === 'pro_gemini_2_5_flash') {
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: `${sysPrompt}\n\nText: ${engText}` }] }],
+              generationConfig: { temperature: 0.1, maxOutputTokens: 120 }
+            })
+          });
+          if (!res.ok) return '';
+          const data = await res.json();
+          const raw = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+          return polishPureArabicGamingOutput(raw);
+        }
+
+        if (providerId === 'pro_gpt_4o_mini') {
+          const res = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${apiKey}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              model: 'gpt-4o-mini',
+              messages: [
+                { role: 'system', content: sysPrompt },
+                { role: 'user', content: engText }
+              ],
+              temperature: 0.1,
+              max_tokens: 120
+            })
+          });
+          if (!res.ok) return '';
+          const data = await res.json();
+          const raw = data?.choices?.[0]?.message?.content || '';
+          return polishPureArabicGamingOutput(raw);
+        }
+
+        if (providerId === 'pro_claude_3_5_haiku') {
+          const res = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {
+              'x-api-key': apiKey,
+              'anthropic-version': '2023-06-01',
+              'anthropic-dangerous-direct-browser-access': 'true',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              model: 'claude-3-5-haiku-latest',
+              max_tokens: 120,
+              system: sysPrompt,
+              messages: [{ role: 'user', content: engText }]
+            })
+          });
+          if (!res.ok) return '';
+          const data = await res.json();
+          const raw = data?.content?.[0]?.text || '';
+          return polishPureArabicGamingOutput(raw);
+        }
+
+        if (providerId === 'pro_deepseek_v3') {
+          const res = await fetch('https://api.deepseek.com/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${apiKey}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              model: 'deepseek-chat',
+              messages: [
+                { role: 'system', content: sysPrompt },
+                { role: 'user', content: engText }
+              ],
+              temperature: 0.1,
+              max_tokens: 120
+            })
+          });
+          if (!res.ok) return '';
+          const data = await res.json();
+          const raw = data?.choices?.[0]?.message?.content || '';
+          return polishPureArabicGamingOutput(raw);
+        }
+      } catch (e) {}
       return '';
     }
 
@@ -2710,25 +3239,52 @@
         if (landOut) landOut.textContent = arText;
       }
 
-      if (isTvPaired && currentTabMode === 'tv') {
+      if (isTvPaired && tvSubMode === 'camera') {
         sendCrossDeviceEvent({
           type: 'SUB_UPDATE',
-          mode: 'CAMERA_PRO',
           text: arText,
           style: subStyleConfig
         });
       }
     }
 
+    function loadSavedEngineAndKeys() {
+      try {
+        const savedEng = localStorage.getItem('siyaq_active_engine');
+        if (savedEng) {
+          activeTranslator = savedEng;
+          const hiddenInput = document.getElementById('translatorEngineSelect');
+          if (hiddenInput) hiddenInput.value = savedEng;
+        }
+        const savedKeys = JSON.parse(localStorage.getItem('siyaq_user_api_keys') || '{}');
+        userApiKeys = { ...userApiKeys, ...savedKeys };
+      } catch (e) {}
+      updateActiveEngineBadgeUI();
+    }
+
+    function updateActiveEngineBadgeUI() {
+      const badge = document.getElementById('statEngineBadge');
+      if (!badge) return;
+      const names = {
+        offline_neural: 'Offline AI',
+        google_gtx: 'Google',
+        microsoft_edge: 'Microsoft',
+        deepl_free: 'DeepL',
+        pro_gemini_2_5_flash: 'Gemini 2.5',
+        pro_gpt_4o_mini: 'GPT-4o',
+        pro_claude_3_5_haiku: 'Claude 3.5',
+        pro_deepseek_v3: 'DeepSeek'
+      };
+      badge.textContent = names[activeTranslator] || 'Google';
+    }
+
     function updateProModelsDropdownUI() {
-      const unlocked = hasProAccess();
       const currentVal = document.getElementById('translatorEngineSelect')?.value || activeTranslator;
 
       document.querySelectorAll('.engine-choice-row').forEach(btn => {
         const eng = btn.getAttribute('data-eng');
         const isSelected = eng === currentVal;
         const statusIcon = btn.querySelector('.eng-status-icon');
-        const proBadgeIcon = btn.querySelector('.eng-pro-badge-icon');
 
         btn.style.backgroundColor = isSelected ? 'rgba(245, 166, 35, 0.10)' : 'transparent';
 
@@ -2737,32 +3293,42 @@
             ? 'eng-status-icon fa-solid fa-circle-check text-cosmo text-sm'
             : 'eng-status-icon fa-regular fa-circle text-[var(--text-muted)] text-sm';
         }
-        if (proBadgeIcon) {
-          if (isSelected && unlocked) proBadgeIcon.className = 'eng-pro-badge-icon fa-solid fa-circle-check text-cosmo text-sm';
-          else if (unlocked) proBadgeIcon.className = 'eng-pro-badge-icon fa-solid fa-bolt text-cosmo text-xs';
-          else proBadgeIcon.className = 'eng-pro-badge-icon fa-solid fa-crown text-cosmo text-xs';
-        }
       });
 
-      const ultraBadge = document.getElementById('ultraEngineBadge');
-      if (ultraBadge) {
-        if (currentVal === 'offline_neural') ultraBadge.textContent = 'أوفلاين 100%';
-        else if (currentVal === 'deepl_free') ultraBadge.textContent = 'DeepL';
-        else if (currentVal === 'microsoft_edge') ultraBadge.textContent = 'Microsoft';
-        else ultraBadge.textContent = 'Google سريع';
+      // إظهار خانة مفتاح API الخاص بالمستخدم للمحركات التي تتطلب مفتاحاً
+      const byokBox = document.getElementById('userByokKeyBox');
+      const keyInput = document.getElementById('userApiKeyInput');
+      const hintTxt = document.getElementById('userByokHintText');
+      const needsKey = currentVal === 'deepl_free' || currentVal.startsWith('pro_');
+
+      if (byokBox && keyInput) {
+        if (needsKey) {
+          byokBox.classList.remove('hidden');
+          keyInput.value = userApiKeys[currentVal] || '';
+          if (hintTxt) {
+            if (currentVal === 'deepl_free') {
+              hintTxt.textContent = currentAppLang === 'ar'
+                ? 'أدخل مفتاح DeepL API Free الخاص بك (ينتهي بـ :fx) — مجاني حتى 500 ألف حرف شهرياً.'
+                : 'Enter your free DeepL API key (ends with :fx) — free up to 500k chars/month.';
+            } else if (currentVal === 'pro_gemini_2_5_flash') {
+              hintTxt.textContent = currentAppLang === 'ar'
+                ? 'أدخل مفتاح Google AI Studio الخاص بك — مجاني للاستخدام الشخصي وعلى حسابك.'
+                : 'Enter your Google AI Studio API key — billed directly to your own account.';
+            } else {
+              hintTxt.textContent = currentAppLang === 'ar'
+                ? 'المفتاح يُحفظ محلياً في جهازك ويتصل مباشرة بسيرفر المزود على حسابك الشخصي.'
+                : 'Your key stays locally on your device and connects directly to the provider on your own account.';
+            }
+          }
+        } else {
+          byokBox.classList.add('hidden');
+        }
       }
     }
 
     function selectCustomTranslatorEngine(val) {
-      if (val === 'offline_neural' && !isOfflineModelDownloaded() && !offlineTranslatorPipeline) {
-        downloadRealOfflineTranslationLibrary();
-        return;
-      }
-      if (val.startsWith('pro_') && !hasProAccess()) {
-        closeView('engineSettingsModal');
-        openSubModalForTier('pro');
-        notify('موديلات الذكاء الاصطناعي متاحة عند الاشتراك في باقة Pro أو Ultra');
-        return;
+      if (val === 'offline_neural' && !isOfflineModelDownloaded) {
+        notify(currentAppLang === 'ar' ? 'اضغط «تنزيل المحرك الآن» في الأعلى لتشغيل وضع الأوفلاين' : 'Tap "Download Engine Now" above first');
       }
       const hiddenInput = document.getElementById('translatorEngineSelect');
       if (hiddenInput) hiddenInput.value = val;
@@ -2771,35 +3337,51 @@
 
     function applyEngineChanges() {
       const sel = document.getElementById('translatorEngineSelect');
-      if (sel && sel.value.startsWith('pro_') && !hasProAccess()) {
-        sel.value = 'google_gtx';
-        updateProModelsDropdownUI();
-        closeView('engineSettingsModal');
-        openSubModalForTier('pro');
+      const chosenEng = sel ? sel.value : 'google_gtx';
+
+      if (chosenEng === 'offline_neural' && !isOfflineModelDownloaded) {
+        downloadOfflineTranslationModel();
         return;
       }
+
+      if (chosenEng === 'deepl_free' || chosenEng.startsWith('pro_')) {
+        const enteredKey = (document.getElementById('userApiKeyInput')?.value || '').trim();
+        if (!enteredKey) {
+          notify(currentAppLang === 'ar' ? 'يرجى لصق مفتاح API الخاص بك أولاً' : 'Please paste your API key first');
+          return;
+        }
+        userApiKeys[chosenEng] = enteredKey;
+        localStorage.setItem('siyaq_user_api_keys', JSON.stringify(userApiKeys));
+      }
+
       activeReaderMode = document.getElementById('ocrReaderModeSelect').value;
-      activeTranslator = sel ? sel.value : 'google_gtx';
+      activeTranslator = chosenEng;
+      localStorage.setItem('siyaq_active_engine', activeTranslator);
+      updateActiveEngineBadgeUI();
+
       lastValidEngSentence = '';
       lastGrayscaleGrid = null;
       recentSubtitleLocks = [];
       translationMemoryCache.clear();
-      updateProModelsDropdownUI();
       closeView('engineSettingsModal');
-      notify('تم حفظ وتطبيق المحرك ✓');
+      notify(currentAppLang === 'ar' ? 'تم حفظ وتطبيق المحرك ✓' : 'Engine applied ✓');
     }
 
-    // ================= 12. اقتران التلفاز مع التحقق الصارم من الفئة =================
+    // ================= 12. اقتران التلفاز =================
     let qrStream = null;
     let qrScanAnim = null;
 
     async function openRealQrScanner() {
-      if (!canAccessCurrentTvTab()) return;
+      if (!canAccessTvProFeatures()) return;
       stopCameraFeed();
       openView('qrScannerModal');
       try {
-        qrStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
-        document.getElementById('qrVideo').srcObject = qrStream;
+        qrStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'environment' },
+          audio: false
+        });
+        const video = document.getElementById('qrVideo');
+        video.srcObject = qrStream;
         scanQrLoop();
       } catch (e) {}
     }
@@ -2810,7 +3392,8 @@
       if (!qrStream || document.getElementById('qrScannerModal').classList.contains('hidden')) return;
 
       if (video.readyState === video.HAVE_ENOUGH_DATA) {
-        canvas.width = video.videoWidth; canvas.height = video.videoHeight;
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -2831,87 +3414,73 @@
 
     function stopQrScannerModal() {
       if (qrScanAnim) cancelAnimationFrame(qrScanAnim);
-      if (qrStream) { qrStream.getTracks().forEach(t => t.stop()); qrStream = null; }
+      if (qrStream) {
+        qrStream.getTracks().forEach(t => t.stop());
+        qrStream = null;
+      }
       closeView('qrScannerModal');
     }
 
     function verifyManualTvPairCode() {
-      if (!canAccessCurrentTvTab()) return;
+      if (!canAccessTvProFeatures()) return;
       const val = document.getElementById('manualTvCodeInput').value.replace(/[^0-9]/g, '').trim();
-      if (val.length < 4) { notify('أدخل رقم الرمز الظاهر على شاشة التلفاز'); return; }
+      if (val.length < 4) {
+        notify(currentAppLang === 'ar' ? 'أدخل رقم الرمز الظاهر على شاشة التلفاز' : 'Enter the TV code');
+        return;
+      }
       stopQrScannerModal();
       pairFromPhoneScanner(val);
     }
 
     function pairFromPhoneScanner(codeStr) {
-      if (!canAccessCurrentTvTab()) return;
-
       if (mqttClient && mqttClient.connected && pairedRoomCode) {
         try {
           mqttClient.unsubscribe(`siyaq/tv/sec/${pairedRoomCode}`);
-          mqttClient.unsubscribe(`siyaq/tv/ultra/${pairedRoomCode}`);
+          mqttClient.unsubscribe(`siyaq/tv/ocr/${pairedRoomCode}`);
         } catch (e) {}
       }
 
       isTvPaired = true;
       pairedRoomCode = codeStr;
-      const effTier = getEffectiveTier();
-      activeSessionToken = generateSessionToken(effTier, pairedRoomCode);
+      isScreenModePaused = false;
 
       if (mqttClient && mqttClient.connected) {
         mqttClient.subscribe(`siyaq/tv/sec/${pairedRoomCode}`);
-        mqttClient.subscribe(`siyaq/tv/ultra/${pairedRoomCode}`);
+        mqttClient.subscribe(`siyaq/tv/ocr/${pairedRoomCode}`);
       }
-
-      const isUltra = (currentTabMode === 'tv_ultra' && effTier === 'ultra');
-      const targetMode = isUltra ? 'TV_ULTRA' : 'CAMERA_PRO';
 
       sendCrossDeviceEvent({
         type: 'PAIRED',
-        mode: targetMode,
-        tier: effTier,
-        sessionToken: activeSessionToken,
+        mode: tvSubMode === 'screen' ? 'SCREEN_MODE' : 'CAMERA_MODE',
         code: pairedRoomCode,
-        style: subStyleConfig,
-        roi: ultraTvRoi
+        style: subStyleConfig
       });
 
-      document.getElementById('tvUnpairedSection').classList.add('hidden');
+      updateWorkspaceVisibility();
 
-      if (isUltra) {
-        stopCameraFeed();
-        document.getElementById('cameraWorkspaceSection').classList.add('hidden');
-        document.getElementById('tvUltraWorkspaceSection').classList.remove('hidden');
-        isUltraStreamActive = true;
-        notify('تم الاقتران بوضع التلفاز ألترا (Ultra) بدون كاميرا ✓');
-      } else {
-        document.getElementById('tvUltraWorkspaceSection').classList.add('hidden');
-        document.getElementById('cameraWorkspaceSection').classList.remove('hidden');
-        updateSubtitleVisibilityForActiveMode();
+      if (tvSubMode === 'camera') {
         if (!videoStreamObj) startCameraFeed();
-        notify('تم الاقتران بوضع التلفاز بالكاميرا (Pro) ✓');
+      } else {
+        stopCameraFeed();
       }
+
+      notify(currentAppLang === 'ar' ? 'تم الاقتران بالتلفاز بنجاح ✓' : 'Paired with TV ✓');
     }
 
     function handleRemoteTvUnpair() {
       if (mqttClient && mqttClient.connected && pairedRoomCode) {
         try {
           mqttClient.unsubscribe(`siyaq/tv/sec/${pairedRoomCode}`);
-          mqttClient.unsubscribe(`siyaq/tv/ultra/${pairedRoomCode}`);
+          mqttClient.unsubscribe(`siyaq/tv/ocr/${pairedRoomCode}`);
         } catch (e) {}
       }
       isTvPaired = false;
       pairedRoomCode = '';
-      activeSessionToken = '';
+      toggleOledPowerSave(false);
       if (isScanning) stopOcrScanning();
-      if (currentTabMode === 'tv' || currentTabMode === 'tv_ultra') stopCameraFeed();
-      updateSubtitleVisibilityForActiveMode();
-      if (currentTabMode === 'tv' || currentTabMode === 'tv_ultra') {
-        document.getElementById('tvUnpairedSection').classList.remove('hidden');
-        document.getElementById('cameraWorkspaceSection').classList.add('hidden');
-        document.getElementById('tvUltraWorkspaceSection').classList.add('hidden');
-      }
-      notify('تم إلغاء الاقتران من التلفاز ✓');
+      if (currentTabMode === 'tv') stopCameraFeed();
+      updateWorkspaceVisibility();
+      notify(currentAppLang === 'ar' ? 'تم إلغاء الاقتران من التلفاز ✓' : 'Unpaired from TV ✓');
     }
 
     function unpairTvDevice() {
@@ -2920,25 +3489,19 @@
         mqttClient.publish(`siyaq/tv/sec/${pairedRoomCode}`, JSON.stringify({ type: 'UNPAIRED' }));
         try {
           mqttClient.unsubscribe(`siyaq/tv/sec/${pairedRoomCode}`);
-          mqttClient.unsubscribe(`siyaq/tv/ultra/${pairedRoomCode}`);
+          mqttClient.unsubscribe(`siyaq/tv/ocr/${pairedRoomCode}`);
         } catch (e) {}
       }
       isTvPaired = false;
       pairedRoomCode = '';
-      activeSessionToken = '';
+      toggleOledPowerSave(false);
       if (isScanning) stopOcrScanning();
-      if (currentTabMode === 'tv' || currentTabMode === 'tv_ultra') stopCameraFeed();
-      updateSubtitleVisibilityForActiveMode();
-
-      if (currentTabMode === 'tv' || currentTabMode === 'tv_ultra') {
-        document.getElementById('tvUnpairedSection').classList.remove('hidden');
-        document.getElementById('cameraWorkspaceSection').classList.add('hidden');
-        document.getElementById('tvUltraWorkspaceSection').classList.add('hidden');
-      }
-      notify('تم إلغاء الاقتران ✓');
+      if (currentTabMode === 'tv') stopCameraFeed();
+      updateWorkspaceVisibility();
+      notify(currentAppLang === 'ar' ? 'تم إلغاء الاقتران ✓' : 'Unpaired ✓');
     }
 
-    // ================= 13. التخصيص الفوري لمظهر الترجمة =================
+    // ================= 13. التخصيص الفوري لمظهر وحدود الخلفية المتوازنة =================
     function applySubtitleStyles() {
       const font = document.getElementById('subFontFamily').value;
       const isBold = document.getElementById('subBoldCheck').checked;
@@ -2962,7 +3525,8 @@
 
       const rgbBg = hexToRgb(subStyleConfig.bgColor);
       const bgRgba = `rgba(${rgbBg.r}, ${rgbBg.g}, ${rgbBg.b}, ${bOp / 100})`;
-      const padV = bH, padH = Math.max(8, Math.round(bH * 1.45));
+      const padV = bH;
+      const padH = Math.max(8, Math.round(bH * 1.45));
 
       ['previewMockSubBox', 'styledSubtitleBox', 'landSubBox'].forEach(boxId => {
         const b = document.getElementById(boxId);
@@ -2971,10 +3535,17 @@
           b.style.borderRadius = '0px';
           b.style.width = 'fit-content';
           b.style.maxWidth = bW + '%';
-          if (boxId === 'previewMockSubBox') { b.style.left = px + '%'; b.style.top = py + '%'; }
-          else { b.style.left = '50%'; b.style.top = '50%'; }
-          b.style.paddingTop = padV + 'px'; b.style.paddingBottom = padV + 'px';
-          b.style.paddingLeft = padH + 'px'; b.style.paddingRight = padH + 'px';
+          if (boxId === 'previewMockSubBox') {
+            b.style.left = px + '%';
+            b.style.top = py + '%';
+          } else {
+            b.style.left = '50%';
+            b.style.top = '50%';
+          }
+          b.style.paddingTop = padV + 'px';
+          b.style.paddingBottom = padV + 'px';
+          b.style.paddingLeft = padH + 'px';
+          b.style.paddingRight = padH + 'px';
         }
       });
 
@@ -2991,9 +3562,22 @@
       });
 
       if (isTvPaired) {
-        const activeTvMode = currentTabMode === 'tv_ultra' ? 'TV_ULTRA' : 'CAMERA_PRO';
-        const previewTxt = lastValidArSentence || 'معاينة حية لمظهر وموقع الترجمة';
-        sendCrossDeviceEvent({ type: 'SUB_UPDATE', mode: activeTvMode, text: previewTxt, style: subStyleConfig });
+        const now = performance.now();
+        const previewTxt = lastValidArSentence || (currentAppLang === 'ar' ? 'معاينة حية لمظهر وموقع الترجمة' : 'Live Subtitle Preview');
+        const payloadObj = tvSubMode === 'screen'
+          ? { type: 'STYLE_UPDATE', style: subStyleConfig }
+          : { type: 'SUB_UPDATE', text: previewTxt, style: subStyleConfig };
+
+        if (!window._lastStyleSentAt || (now - window._lastStyleSentAt) >= 30) {
+          window._lastStyleSentAt = now;
+          sendCrossDeviceEvent(payloadObj);
+        } else {
+          if (window._tvStyleSyncTimer) clearTimeout(window._tvStyleSyncTimer);
+          window._tvStyleSyncTimer = setTimeout(() => {
+            window._lastStyleSentAt = performance.now();
+            sendCrossDeviceEvent(payloadObj);
+          }, 30);
+        }
       }
     }
 
@@ -3001,9 +3585,16 @@
       ['alignBtnTop', 'alignBtnCenter', 'alignBtnBottom'].forEach(id => {
         document.getElementById(id).className = 'py-1 text-slate-400';
       });
-      if (pos === 'top') { document.getElementById('alignBtnTop').className = 'py-1 text-cosmo font-black'; document.getElementById('rngPosY').value = 20; }
-      else if (pos === 'center') { document.getElementById('alignBtnCenter').className = 'py-1 text-cosmo font-black'; document.getElementById('rngPosY').value = 50; }
-      else { document.getElementById('alignBtnBottom').className = 'py-1 text-cosmo font-black'; document.getElementById('rngPosY').value = 82; }
+      if (pos === 'top') {
+        document.getElementById('alignBtnTop').className = 'py-1 text-cosmo font-black';
+        document.getElementById('rngPosY').value = 20;
+      } else if (pos === 'center') {
+        document.getElementById('alignBtnCenter').className = 'py-1 text-cosmo font-black';
+        document.getElementById('rngPosY').value = 50;
+      } else {
+        document.getElementById('alignBtnBottom').className = 'py-1 text-cosmo font-black';
+        document.getElementById('rngPosY').value = 82;
+      }
       applySubtitleStyles();
     }
 
@@ -3028,13 +3619,15 @@
       document.getElementById('textColorPreviewCircle').style.backgroundColor = '#FFFFFF';
       document.getElementById('bgColorPreviewCircle').style.backgroundColor = '#000000';
       applySubtitleStyles();
-      notify('تمت استعادة الإعدادات الافتراضية ✓');
+      notify(currentAppLang === 'ar' ? 'تمت استعادة الإعدادات الافتراضية ✓' : 'Defaults restored ✓');
     }
 
     // ================= 14. طيف الألوان والقطارة =================
     function openColorSpectrumPicker(target) {
       activeColorTarget = target;
-      document.getElementById('colorModalTitle').textContent = target === 'text' ? 'لون النص' : 'لون الخلفية';
+      document.getElementById('colorModalTitle').textContent = target === 'text'
+        ? (currentAppLang === 'ar' ? 'لون النص' : 'Text Color')
+        : (currentAppLang === 'ar' ? 'لون الخلفية' : 'Background Color');
       openView('colorPickerModal');
       drawSpectrumCanvas();
       buildColorGrid();
@@ -3044,16 +3637,23 @@
       const cvs = document.getElementById('spectrumCanvas');
       const ctx = cvs.getContext('2d');
       const gradH = ctx.createLinearGradient(0, 0, cvs.width, 0);
-      gradH.addColorStop(0, '#FF0000'); gradH.addColorStop(0.17, '#FFFF00');
-      gradH.addColorStop(0.33, '#00FF00'); gradH.addColorStop(0.50, '#00FFFF');
-      gradH.addColorStop(0.67, '#0000FF'); gradH.addColorStop(0.83, '#FF00FF');
+      gradH.addColorStop(0, '#FF0000');
+      gradH.addColorStop(0.17, '#FFFF00');
+      gradH.addColorStop(0.33, '#00FF00');
+      gradH.addColorStop(0.50, '#00FFFF');
+      gradH.addColorStop(0.67, '#0000FF');
+      gradH.addColorStop(0.83, '#FF00FF');
       gradH.addColorStop(1, '#FF0000');
-      ctx.fillStyle = gradH; ctx.fillRect(0, 0, cvs.width, cvs.height);
+      ctx.fillStyle = gradH;
+      ctx.fillRect(0, 0, cvs.width, cvs.height);
 
       const gradV = ctx.createLinearGradient(0, 0, 0, cvs.height);
-      gradV.addColorStop(0, 'rgba(255,255,255,1)'); gradV.addColorStop(0.5, 'rgba(255,255,255,0)');
-      gradV.addColorStop(0.5, 'rgba(0,0,0,0)'); gradV.addColorStop(1, 'rgba(0,0,0,1)');
-      ctx.fillStyle = gradV; ctx.fillRect(0, 0, cvs.width, cvs.height);
+      gradV.addColorStop(0, 'rgba(255,255,255,1)');
+      gradV.addColorStop(0.5, 'rgba(255,255,255,0)');
+      gradV.addColorStop(0.5, 'rgba(0,0,0,0)');
+      gradV.addColorStop(1, 'rgba(0,0,0,1)');
+      ctx.fillStyle = gradV;
+      ctx.fillRect(0, 0, cvs.width, cvs.height);
 
       cvs.onpointerdown = (e) => pickFromSpectrum(e, cvs);
       cvs.onpointermove = (e) => { if (e.buttons === 1) pickFromSpectrum(e, cvs); };
@@ -3086,7 +3686,9 @@
     }
 
     function switchColorTab(tab) {
-      ['spectrum', 'grid', 'sliders'].forEach(t => document.getElementById(`${t}Panel`).classList.add('hidden'));
+      ['spectrum', 'grid', 'sliders'].forEach(t => {
+        document.getElementById(`${t}Panel`).classList.add('hidden');
+      });
       document.getElementById(`${tab}Panel`).classList.remove('hidden');
     }
 
@@ -3102,7 +3704,11 @@
 
     async function triggerNativeEyedropper() {
       if (window.EyeDropper) {
-        try { const res = await (new EyeDropper()).open(); setChosenColor(res.sRGBHex); } catch (e) {}
+        try {
+          const ed = new EyeDropper();
+          const res = await ed.open();
+          setChosenColor(res.sRGBHex);
+        } catch (e) {}
       }
     }
 
@@ -3129,12 +3735,13 @@
       return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
     }
 
-    // ================= 15. وضع الملائمة والنوافذ والاشتراكات =================
+    // ================= 15. وضع الملائمة والنوافذ =================
     function enterFullLandscape() {
       if (!videoStreamObj) startCameraFeed();
       document.getElementById('landscapeFullOverlay').classList.remove('hidden');
       if (videoStreamObj) {
-        const v1 = document.getElementById('mainVideo'), v2 = document.getElementById('landscapeVideo');
+        const v1 = document.getElementById('mainVideo');
+        const v2 = document.getElementById('landscapeVideo');
         if (v1) v1.pause();
         if (v2) v2.play().catch(() => {});
       }
@@ -3147,7 +3754,8 @@
     function exitFullLandscape() {
       document.getElementById('landscapeFullOverlay').classList.add('hidden');
       if (videoStreamObj) {
-        const v1 = document.getElementById('mainVideo'), v2 = document.getElementById('landscapeVideo');
+        const v1 = document.getElementById('mainVideo');
+        const v2 = document.getElementById('landscapeVideo');
         if (v2) v2.pause();
         if (v1) v1.play().catch(() => {});
       }
@@ -3161,38 +3769,38 @@
       applySubtitleStyles();
     }
 
-    function openView(id) { const el = document.getElementById(id); if (el) el.classList.remove('hidden'); }
-    function closeView(id) { const el = document.getElementById(id); if (el) el.classList.add('hidden'); }
+    function openView(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('hidden');
+      if (id === 'engineSettingsModal') {
+        updateProModelsDropdownUI();
+        updateOfflineModelStatusUI();
+      }
+    }
+
+    function closeView(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('hidden');
+    }
 
     function saveAndConfirmSettings(modalId) {
       if (modalId) closeView(modalId);
-      notify('تم حفظ الإعدادات ✓');
+      notify(currentAppLang === 'ar' ? 'تم حفظ الإعدادات ✓' : 'Settings saved ✓');
     }
 
     function selectSubTier(el) {
       document.querySelectorAll('.sub-tier-card').forEach(c => {
-        c.className = 'sub-tier-card p-3.5 rounded-2xl clean-surface border border-[var(--border-col)] space-y-1 cursor-pointer';
+        c.className = 'sub-tier-card p-3.5 rounded-2xl clean-surface border border-[var(--border-col)] flex justify-between items-center cursor-pointer';
       });
-      el.className = 'sub-tier-card p-3.5 rounded-2xl clean-surface border-2 border-[#F5A623] space-y-1 cursor-pointer';
-      selectedModalTier = el.getAttribute('data-tier') || 'pro';
-      const cta = document.getElementById('subscribeCtaLabel');
-      if (cta) {
-        cta.textContent = selectedModalTier === 'ultra' ? 'تفعيل باقة Ultra الآن' : 'تفعيل باقة Pro الآن';
-      }
+      el.className = 'sub-tier-card p-3.5 rounded-2xl clean-surface border-2 border-[#F5A623] flex justify-between items-center cursor-pointer';
     }
 
     function activateProSubscription() {
-      userSubscriptionTier = selectedModalTier;
-      refreshTierBadgeUI();
+      isProUser = true;
       refreshTrialUI();
       updateProModelsDropdownUI();
       closeView('subModal');
-
-      if (userSubscriptionTier === 'ultra') {
-        notify('تم تفعيل باقة SIYAQ Ultra بنجاح ✓');
-      } else {
-        notify('تم تفعيل باقة SIYAQ Pro بنجاح ✓');
-      }
+      notify(currentAppLang === 'ar' ? 'تم تفعيل اشتراك SIYAQ الاحترافي ✓' : 'SIYAQ Pro activated ✓');
     }
 
     function downloadTvApkDirect() {
@@ -3202,7 +3810,7 @@
     function copyTvDownloadLink() {
       const link = 'https://github.com/alwdd59/SIYAQ-TV/releases/latest/download/SIYAQ-TV.apk';
       if (navigator.clipboard) navigator.clipboard.writeText(link);
-      notify('تم نسخ رابط التحميل ✓');
+      notify(currentAppLang === 'ar' ? 'تم نسخ رابط التحميل ✓' : 'Download link copied ✓');
     }
 
     let toastTimer = null;
@@ -3213,7 +3821,7 @@
       txt.textContent = msg;
       box.classList.remove('hidden');
       if (toastTimer) clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => box.classList.add('hidden'), 2500);
+      toastTimer = setTimeout(() => box.classList.add('hidden'), 2400);
     }
   </script>
 </body>
